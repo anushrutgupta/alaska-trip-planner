@@ -114,9 +114,9 @@ export default function App() {
         packedTotal={PACKING.length}
       />
 
-      <main className="flex min-h-0 flex-1">
-        {/* Left: Map (~55%). Always rendered. */}
-        <section className="relative h-full basis-[55%] border-r border-ink-200">
+      <main className="flex min-h-0 flex-1 flex-col lg:flex-row">
+        {/* Map: stacked on top (40vh) on mobile, left ~55% on desktop. */}
+        <section className="relative h-[40vh] shrink-0 border-b border-ink-200 lg:h-full lg:basis-[55%] lg:border-b-0 lg:border-r">
           <MapView
             stops={STOPS}
             currentIndex={currentIndex}
@@ -127,8 +127,8 @@ export default function App() {
           <MapLegend />
         </section>
 
-        {/* Right: tabbed panel (~45%) */}
-        <section className="flex h-full basis-[45%] flex-col">
+        {/* Panel: below on mobile, right ~45% on desktop */}
+        <section className="flex min-h-0 flex-1 flex-col lg:h-full lg:basis-[45%]">
           {tab === "today" && (
             <TodayPanel
               trip={trip}
@@ -196,7 +196,7 @@ export default function App() {
 
 function MapLegend() {
   return (
-    <div className="pointer-events-none absolute bottom-4 left-4 rounded-lg border border-ink-200 bg-white/95 px-3 py-2 text-[11px] shadow-sm backdrop-blur">
+    <div className="pointer-events-none absolute bottom-2 left-2 hidden rounded-lg border border-ink-200 bg-white/95 px-2.5 py-1.5 text-[11px] shadow-sm backdrop-blur sm:block lg:bottom-4 lg:left-4 lg:px-3 lg:py-2">
       <div className="mb-1 font-semibold uppercase tracking-wide text-ink-500">
         Route
       </div>
@@ -222,7 +222,7 @@ function MapLegend() {
           Boat
         </span>
       </div>
-      <div className="mt-1 text-[10px] text-ink-400">← → arrow keys to step</div>
+      <div className="mt-1 hidden text-[10px] text-ink-400 lg:block">← → arrow keys to step</div>
     </div>
   );
 }

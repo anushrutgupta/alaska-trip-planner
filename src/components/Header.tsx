@@ -37,16 +37,16 @@ export function Header({
   packedTotal,
 }: Props) {
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between gap-4 border-b border-ink-200 bg-white px-6">
-      <div className="flex shrink-0 items-baseline gap-4">
+    <header className="flex shrink-0 flex-col gap-1 border-b border-ink-200 bg-white px-3 pb-1 pt-2 sm:px-6 lg:h-16 lg:flex-row lg:items-center lg:justify-between lg:gap-4 lg:py-0">
+      <div className="flex shrink-0 items-baseline gap-3 sm:gap-4">
         <h1 className="text-base font-semibold tracking-tight text-ink-900">
           Alaska 2026
         </h1>
-        <div className="hidden text-xs text-ink-500 md:block">
+        <div className="text-[11px] text-ink-500 sm:text-xs">
           Jun 25 – Jul 5  ·  6 travelers
         </div>
       </div>
-      <nav className="flex flex-wrap items-center gap-1">
+      <nav className="scroll-soft -mx-1 flex flex-nowrap items-center gap-1 overflow-x-auto pb-1 lg:mx-0 lg:flex-wrap lg:overflow-visible lg:pb-0">
         {TABS.map((t) => {
           if (t.key === "today" && !showToday) return null;
           const isActive = t.key === active;
@@ -61,7 +61,7 @@ export function Header({
               key={t.key}
               onClick={() => onTab(t.key)}
               className={
-                "rounded-md px-2.5 py-1.5 text-sm transition-colors " +
+                "shrink-0 rounded-md px-2.5 py-1.5 text-sm transition-colors " +
                 (isActive
                   ? "bg-ink-900 text-white"
                   : "text-ink-600 hover:bg-ink-100")

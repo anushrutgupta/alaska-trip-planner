@@ -155,42 +155,42 @@ function Ledger({ expenses, setExpenses }: Props) {
       </div>
 
       <div className="rounded-xl border border-ink-200 bg-white p-3">
-        <div className="grid grid-cols-12 gap-2">
-          <input
-            value={label}
-            onChange={(e) => setLabel(e.target.value)}
-            placeholder="What"
-            className="col-span-4 rounded-md border border-ink-200 bg-white px-2.5 py-1.5 text-sm placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
-          />
+        <input
+          value={label}
+          onChange={(e) => setLabel(e.target.value)}
+          placeholder="What was paid for"
+          className="w-full rounded-md border border-ink-200 bg-white px-2.5 py-2 text-sm placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
+        />
+        <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
           <input
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            placeholder="$"
+            placeholder="$ amount"
             inputMode="decimal"
-            className="col-span-2 rounded-md border border-ink-200 bg-white px-2.5 py-1.5 text-sm tabular-nums placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
+            className="rounded-md border border-ink-200 bg-white px-2.5 py-2 text-sm tabular-nums placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
           />
           <input
             value={paidBy}
             onChange={(e) => setPaidBy(e.target.value)}
             placeholder="Paid by"
-            className="col-span-3 rounded-md border border-ink-200 bg-white px-2.5 py-1.5 text-sm placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
+            className="rounded-md border border-ink-200 bg-white px-2.5 py-2 text-sm placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
           />
           <select
             value={split}
             onChange={(e) => setSplit(parseInt(e.target.value, 10))}
-            className="col-span-2 rounded-md border border-ink-200 bg-white px-2 py-1.5 text-sm focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
+            className="rounded-md border border-ink-200 bg-white px-2 py-2 text-sm focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
           >
             {[1, 2, 3, 4, 5, 6].map((n) => (
               <option key={n} value={n}>
-                ÷{n}
+                Split ÷{n}
               </option>
             ))}
           </select>
           <button
             onClick={add}
-            className="col-span-1 rounded-md bg-ink-900 px-2 py-1.5 text-sm font-medium text-white transition-colors hover:bg-ink-800"
+            className="rounded-md bg-ink-900 px-2 py-2 text-sm font-medium text-white transition-colors hover:bg-ink-800"
           >
-            +
+            Add
           </button>
         </div>
       </div>
