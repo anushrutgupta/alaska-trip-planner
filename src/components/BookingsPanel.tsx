@@ -1,11 +1,35 @@
+import { useState } from "react";
 import { BOOKINGS } from "../data/bookings";
+import { ActionLinks } from "./ActionLinks";
+
+export interface BookingConfirmation {
+  conf?: string;
+  contactName?: string;
+  time?: string;
+}
 
 interface Props {
   booked: Record<string, boolean>;
   onToggle: (id: string) => void;
+  confirmations: Record<string, BookingConfirmation>;
+  setConfirmations: (c: Record<string, BookingConfirmation>) => void;
 }
 
-export function BookingsPanel({ booked, onToggle }: Props) {
+export function BookingsPanel({
+  booked,
+  onToggle,
+  confirmations,
+  setConfirmations,
+}: Props) {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  function updateConf(id: string, patch: Partial<BookingConfirmation>) {
+    setConfirmations({
+      ...confirmations,
+      [id]: { ...(confirmations[id] ?? {}), ...patch },
+    });
+  }
+
   return (
     <div className="scroll-soft h-full overflow-y-auto px-6 py-5">
       <div className="mb-4">
@@ -13,51 +37,117 @@ export function BookingsPanel({ booked, onToggle }: Props) {
           Bookings
         </h2>
         <p className="mt-1 text-sm text-ink-500">
-          Priority-sorted. Top items have hard capacity limits — book early.
+          Priority-sorted. Tap a row to add a confirmation number and contact name.
         </p>
       </div>
 
       <ul className="space-y-2">
         {BOOKINGS.map((b) => {
           const isBooked = !!booked[b.id];
+          const isExpanded = expandedId === b.id;
+          const conf = confirmations[b.id] ?? {};
+          const hasConf = !!(conf.conf || conf.contactName || conf.time);
+
           return (
             <li key={b.id}>
-              <button
-                onClick={() => onToggle(b.id)}
+              <div
                 className={
-                  "group flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left transition-colors " +
+                  "rounded-xl border transition-colors " +
                   (isBooked
                     ? "border-emerald-200 bg-emerald-50/50"
-                    : "border-ink-200 bg-white hover:border-ink-300 hover:bg-ink-50")
+                    : "border-ink-200 bg-white hover:border-ink-300")
                 }
               >
-                <Checkbox checked={isBooked} />
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-xs font-mono text-ink-400">
-                      {String(b.priority).padStart(2, "0")}
-                    </span>
-                    <span
-                      className={
-                        "text-sm font-medium " +
-                        (isBooked ? "text-ink-500 line-through" : "text-ink-900")
-                      }
-                    >
-                      {b.name}
-                    </span>
-                  </div>
-                  <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-ink-500">
-                    <span>{b.date}</span>
-                    <span className="text-ink-300">·</span>
-                    <span className="font-medium text-ink-700">{b.price}</span>
-                    <span className="text-ink-300">·</span>
-                    <span>{b.contact}</span>
-                  </div>
-                  {b.notes && (
-                    <p className="mt-1 text-xs italic text-ink-500">{b.notes}</p>
-                  )}
+                <div className="flex items-start gap-3 px-4 py-3">
+                  <button
+                    onClick={() => onToggle(b.id)}
+                    className="mt-0.5 shrink-0"
+                    aria-label={isBooked ? "Mark not booked" : "Mark booked"}
+                  >
+                    <Checkbox checked={isBooked} />
+                  </button>
+                  <button
+                    onClick={() => setExpandedId(isExpanded ? null : b.id)}
+                    className="min-w-0 flex-1 text-left"
+                  >
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-mono text-xs text-ink-400">
+                        {String(b.priority).padStart(2, "0")}
+                      </span>
+                      <span
+                        className={
+                          "text-sm font-medium " +
+                          (isBooked
+                            ? "text-ink-500 line-through"
+                            : "text-ink-900")
+                        }
+                      >
+                        {b.name}
+                      </span>
+                      {hasConf && (
+                        <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">
+                          conf saved
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-ink-500">
+                      <span>{b.date}</span>
+                      <span className="text-ink-300">·</span>
+                      <span className="font-medium text-ink-700">{b.price}</span>
+                      <span className="text-ink-300">·</span>
+                      <span>{b.contact}</span>
+                    </div>
+                    {b.notes && !isExpanded && (
+                      <p className="mt-1 text-xs italic text-ink-500">
+                        {b.notes}
+                      </p>
+                    )}
+                  </button>
+                  <Chevron expanded={isExpanded} />
                 </div>
-              </button>
+
+                {isExpanded && (
+                  <div className="border-t border-ink-100 px-4 py-3">
+                    <div className="mb-3">
+                      <ActionLinks phone={b.phone} url={b.url} size="md" />
+                    </div>
+
+                    {b.planB && (
+                      <div className="mb-3 rounded-md bg-ink-50 px-3 py-2 text-xs leading-relaxed text-ink-600">
+                        <span className="font-medium text-ink-700">Plan B: </span>
+                        {b.planB}
+                      </div>
+                    )}
+
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                      <Field
+                        label="Confirmation #"
+                        value={conf.conf ?? ""}
+                        onChange={(v) => updateConf(b.id, { conf: v })}
+                        placeholder="ABC-123456"
+                      />
+                      <Field
+                        label="Contact person"
+                        value={conf.contactName ?? ""}
+                        onChange={(v) => updateConf(b.id, { contactName: v })}
+                        placeholder="Name"
+                      />
+                      <Field
+                        label="Time / window"
+                        value={conf.time ?? ""}
+                        onChange={(v) => updateConf(b.id, { time: v })}
+                        placeholder="08:30 or 'tide-dep'"
+                      />
+                    </div>
+
+                    {b.notes && (
+                      <p className="mt-3 text-xs italic text-ink-500">
+                        {b.notes}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
             </li>
           );
         })}
@@ -66,14 +156,41 @@ export function BookingsPanel({ booked, onToggle }: Props) {
   );
 }
 
+function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+}) {
+  return (
+    <label className="block">
+      <div className="text-[10px] font-semibold uppercase tracking-wide text-ink-500">
+        {label}
+      </div>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className="mt-0.5 w-full rounded-md border border-ink-200 bg-white px-2.5 py-1.5 text-sm text-ink-800 placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
+      />
+    </label>
+  );
+}
+
 function Checkbox({ checked }: { checked: boolean }) {
   return (
     <span
       className={
-        "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors " +
+        "flex h-5 w-5 items-center justify-center rounded-md border transition-colors " +
         (checked
           ? "border-emerald-500 bg-emerald-500 text-white"
-          : "border-ink-300 bg-white text-transparent group-hover:border-ink-400")
+          : "border-ink-300 bg-white text-transparent")
       }
     >
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -86,5 +203,28 @@ function Checkbox({ checked }: { checked: boolean }) {
         />
       </svg>
     </span>
+  );
+}
+
+function Chevron({ expanded }: { expanded: boolean }) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      className={
+        "mt-1 shrink-0 text-ink-400 transition-transform " +
+        (expanded ? "rotate-180" : "")
+      }
+    >
+      <path
+        d="M6 9l6 6 6-6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }

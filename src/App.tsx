@@ -1,30 +1,49 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MapView } from "./components/MapView";
 import { Header } from "./components/Header";
 import { DetailCard } from "./components/DetailCard";
 import { RouteTimeline } from "./components/RouteTimeline";
-import { BookingsPanel } from "./components/BookingsPanel";
-import { BudgetPanel } from "./components/BudgetPanel";
+import { BookingsPanel, type BookingConfirmation } from "./components/BookingsPanel";
+import { BudgetPanel, type Expense } from "./components/BudgetPanel";
 import { PackingPanel } from "./components/PackingPanel";
+import { TodayPanel } from "./components/TodayPanel";
+import { DaysPanel } from "./components/DaysPanel";
+import { ContactsPanel } from "./components/ContactsPanel";
 import { STOPS } from "./data/stops";
 import { BOOKINGS } from "./data/bookings";
 import { PACKING } from "./data/packing";
 import { useStepNavigation } from "./hooks/useStepNavigation";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useTripDate } from "./hooks/useTripDate";
 
-export type TabKey = "journey" | "bookings" | "budget" | "packing";
+export type TabKey =
+  | "today"
+  | "journey"
+  | "days"
+  | "bookings"
+  | "budget"
+  | "pack"
+  | "contacts";
 
 export default function App() {
-  // v3 = Homer-first itinerary (Lake Clark → Kenai Fjords order swapped).
-  // Bumped key so saved indices from v1/v2 don't resurface on the wrong stop.
-  // booked/packed keys are intentionally NOT bumped — those IDs are stable
-  // so user's checklists survive across plan revisions.
+  const trip = useTripDate();
+
+  // v3 = Homer-first itinerary
   const [currentIndex, setCurrentIndex] = useLocalStorage<number>(
     "alaska.v3.currentIndex",
     0,
   );
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [tab, setTab] = useState<TabKey>("journey");
+
+  // Smart default tab: Today if trip is active or starting in <30 days, else Journey
+  const initialTab: TabKey = useMemo(() => {
+    if (trip.phase === "during") return "today";
+    if (trip.phase === "before" && trip.daysUntilTrip <= 30) return "today";
+    if (trip.phase === "after") return "today";
+    return "journey";
+  }, [trip.phase, trip.daysUntilTrip]);
+
+  const [tab, setTab] = useState<TabKey>(initialTab);
 
   const [booked, setBooked] = useLocalStorage<Record<string, boolean>>(
     "alaska.booked",
@@ -34,7 +53,23 @@ export default function App() {
     "alaska.packed",
     {},
   );
+  const [preReady, setPreReady] = useLocalStorage<Record<string, boolean>>(
+    "alaska.preReady",
+    {},
+  );
+  const [confirmations, setConfirmations] = useLocalStorage<
+    Record<string, BookingConfirmation>
+  >("alaska.confirmations", {});
+  const [expenses, setExpenses] = useLocalStorage<Expense[]>(
+    "alaska.expenses",
+    [],
+  );
+  const [dayNotes, setDayNotes] = useLocalStorage<Record<string, string>>(
+    "alaska.dayNotes",
+    {},
+  );
 
+  // Arrow-key navigation only matters in Journey + Days
   useStepNavigation({
     total: STOPS.length,
     current: currentIndex,
@@ -54,11 +89,25 @@ export default function App() {
   const prev = currentIndex > 0 ? STOPS[currentIndex - 1] : null;
   const next = currentIndex < STOPS.length - 1 ? STOPS[currentIndex + 1] : null;
 
+  const todayBadge = useMemo(() => {
+    if (trip.phase === "during") return "Now";
+    if (trip.phase === "before") return `T-${trip.daysUntilTrip}`;
+    return undefined;
+  }, [trip.phase, trip.daysUntilTrip]);
+
+  function jumpToStop(i: number) {
+    setCurrentIndex(i);
+    // Stay on the current tab — user wanted to highlight on the map, not
+    // navigate away from where they were reading.
+  }
+
   return (
     <div className="flex h-full flex-col bg-white">
       <Header
         active={tab}
         onTab={setTab}
+        showToday={trip.phase !== "before" || trip.daysUntilTrip <= 60}
+        todayBadge={todayBadge}
         bookingsDone={bookingsDone}
         bookingsTotal={BOOKINGS.length}
         packedDone={packedDone}
@@ -80,6 +129,16 @@ export default function App() {
 
         {/* Right: tabbed panel (~45%) */}
         <section className="flex h-full basis-[45%] flex-col">
+          {tab === "today" && (
+            <TodayPanel
+              trip={trip}
+              booked={booked}
+              packed={packed}
+              preReady={preReady}
+              onJumpToStop={jumpToStop}
+              onGoToTab={(t) => setTab(t as TabKey)}
+            />
+          )}
           {tab === "journey" && (
             <>
               <DetailCard
@@ -99,23 +158,36 @@ export default function App() {
               />
             </>
           )}
+          {tab === "days" && (
+            <DaysPanel
+              trip={trip}
+              notes={dayNotes}
+              setNotes={setDayNotes}
+              onJumpToStop={jumpToStop}
+            />
+          )}
           {tab === "bookings" && (
             <BookingsPanel
               booked={booked}
-              onToggle={(id) =>
-                setBooked({ ...booked, [id]: !booked[id] })
-              }
+              onToggle={(id) => setBooked({ ...booked, [id]: !booked[id] })}
+              confirmations={confirmations}
+              setConfirmations={setConfirmations}
             />
           )}
-          {tab === "budget" && <BudgetPanel />}
-          {tab === "packing" && (
+          {tab === "budget" && (
+            <BudgetPanel expenses={expenses} setExpenses={setExpenses} />
+          )}
+          {tab === "pack" && (
             <PackingPanel
               packed={packed}
-              onToggle={(id) =>
-                setPacked({ ...packed, [id]: !packed[id] })
+              onTogglePack={(id) => setPacked({ ...packed, [id]: !packed[id] })}
+              preReady={preReady}
+              onTogglePre={(id) =>
+                setPreReady({ ...preReady, [id]: !preReady[id] })
               }
             />
           )}
+          {tab === "contacts" && <ContactsPanel />}
         </section>
       </main>
     </div>

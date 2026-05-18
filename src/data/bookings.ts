@@ -4,8 +4,11 @@ export interface Booking {
   name: string;
   date: string;
   contact: string;
+  phone?: string;
+  url?: string;
   price: string;
   notes: string;
+  planB?: string;
 }
 
 export const BOOKINGS: Booking[] = [
@@ -14,36 +17,49 @@ export const BOOKINGS: Booking[] = [
     priority: 1,
     name: "Kenai Fjords 8.5-hr cruise (6 seats)",
     date: "Mon Jun 29",
-    contact: "majormarine.com · 907-274-7300",
+    contact: "Major Marine Tours",
+    phone: "+19072747300",
+    url: "https://majormarine.com",
     price: "$309/pp",
     notes: "Only 36 seats. Book NOW.",
+    planB:
+      "<10% cancel rate. If cancelled: refund + half-day backup if any slots open same week.",
   },
   {
     id: "smokey-bay-air",
     priority: 2,
     name: "Smokey Bay Air bears (6 ppl, 2 planes)",
     date: "Sat Jun 27 (buffer: Jun 28)",
-    contact: "907-531-0602 · 888-482-1511",
+    contact: "Smokey Bay Air",
+    phone: "+19075310602",
     price: "~$625/pp",
     notes: "Confirm same departure slot. Need body weights. Full refund on weather cancel.",
+    planB: "Day 3 AM buffer attempt. If 2 cancels in a row: refund and accept the miss.",
   },
   {
     id: "tat-flightseeing",
     priority: 3,
     name: "TAT flightseeing + glacier landing",
-    date: "Wed Jul 1 AM (primary) · Jun 30 PM + Jul 2 AM buffers",
-    contact: "907-733-2218",
+    date: "Wed Jul 1 AM (primary)",
+    contact: "Talkeetna Air Taxi",
+    phone: "+19077332218",
+    url: "https://talkeetnaair.com",
     price: "$525 + $15/pp",
     notes: "Body weights. 5 ppl = 2 planes; confirm simultaneous.",
+    planB:
+      "PM standby Jun 30 (bonus). PM standby Jul 1 if AM cancels. Final retry Jul 2 AM en route to Denali. After 3 attempts, refund.",
   },
   {
     id: "transit-bus",
     priority: 4,
     name: "Transit bus (5 seats, one reservation)",
     date: "Fri Jul 3, earliest AM",
-    contact: "reservedenali.com",
+    contact: "Reserve Denali",
+    phone: "+18006221297",
+    url: "https://reservedenali.com",
     price: "$33.50/pp",
     notes: "All on one reservation.",
+    planB: "<5% cancel rate. If cancelled: 9 AM Tundra Wilderness Tour as backup.",
   },
   {
     id: "rental-car",
@@ -69,6 +85,7 @@ export const BOOKINGS: Booking[] = [
     name: "Seward lodging (2 nights)",
     date: "Jun 28–29",
     contact: "Harbor 360 (cruise dock behind)",
+    phone: "+19072251330",
     price: "~$220/room",
     notes: "Ideal cruise-day logistics.",
   },
@@ -105,6 +122,7 @@ export const BOOKINGS: Booking[] = [
     name: "Airport hotel (1 night)",
     date: "Thu Jun 25",
     contact: "Courtyard ANC Airport",
+    phone: "+19072454650",
     price: "~$160/room",
     notes: "Late arrival — counters stay open.",
   },
