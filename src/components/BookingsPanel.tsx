@@ -9,18 +9,11 @@ export interface BookingConfirmation {
 }
 
 interface Props {
-  booked: Record<string, boolean>;
-  onToggle: (id: string) => void;
   confirmations: Record<string, BookingConfirmation>;
   setConfirmations: (c: Record<string, BookingConfirmation>) => void;
 }
 
-export function BookingsPanel({
-  booked,
-  onToggle,
-  confirmations,
-  setConfirmations,
-}: Props) {
+export function BookingsPanel({ confirmations, setConfirmations }: Props) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   function updateConf(id: string, patch: Partial<BookingConfirmation>) {
@@ -37,13 +30,14 @@ export function BookingsPanel({
           Bookings
         </h2>
         <p className="mt-1 text-sm text-ink-500">
-          Priority-sorted. Tap a row to add a confirmation number and contact name.
+          Status comes from your confirmations. Tap a row to view details or
+          jot a contact name.
         </p>
       </div>
 
       <ul className="space-y-2">
         {BOOKINGS.map((b) => {
-          const isBooked = !!booked[b.id];
+          const isBooked = b.confirmed === true;
           const isExpanded = expandedId === b.id;
           const conf = confirmations[b.id] ?? {};
           const hasConf = !!(conf.conf || conf.contactName || conf.time);
@@ -55,17 +49,13 @@ export function BookingsPanel({
                   "rounded-xl border transition-colors " +
                   (isBooked
                     ? "border-emerald-200 bg-emerald-50/50"
-                    : "border-ink-200 bg-white hover:border-ink-300")
+                    : "border-amber-200 bg-amber-50/40")
                 }
               >
                 <div className="flex items-start gap-3 px-4 py-3">
-                  <button
-                    onClick={() => onToggle(b.id)}
-                    className="mt-0.5 shrink-0"
-                    aria-label={isBooked ? "Mark not booked" : "Mark booked"}
-                  >
-                    <Checkbox checked={isBooked} />
-                  </button>
+                  <div className="mt-0.5 shrink-0" aria-hidden>
+                    <StatusDot confirmed={isBooked} />
+                  </div>
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : b.id)}
                     className="min-w-0 flex-1 text-left"
@@ -74,14 +64,7 @@ export function BookingsPanel({
                       <span className="font-mono text-xs text-ink-400">
                         {String(b.priority).padStart(2, "0")}
                       </span>
-                      <span
-                        className={
-                          "text-sm font-medium " +
-                          (isBooked
-                            ? "text-ink-500 line-through"
-                            : "text-ink-900")
-                        }
-                      >
+                      <span className="text-sm font-medium text-ink-900">
                         {b.name}
                       </span>
                       {b.confirmed && (
@@ -235,25 +218,31 @@ function Field({
   );
 }
 
-function Checkbox({ checked }: { checked: boolean }) {
+// Read-only status indicator — confirmed (green check) vs to-book (amber ring).
+function StatusDot({ confirmed }: { confirmed: boolean }) {
   return (
     <span
+      title={confirmed ? "Confirmed" : "Not booked yet"}
       className={
-        "flex h-5 w-5 items-center justify-center rounded-md border transition-colors " +
-        (checked
+        "flex h-5 w-5 items-center justify-center rounded-full border " +
+        (confirmed
           ? "border-emerald-500 bg-emerald-500 text-white"
-          : "border-ink-300 bg-white text-transparent")
+          : "border-amber-400 bg-white text-amber-500")
       }
     >
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-        <path
-          d="M5 12l5 5L20 7"
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      {confirmed ? (
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M5 12l5 5L20 7"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      ) : (
+        <span className="text-xs font-bold leading-none">!</span>
+      )}
     </span>
   );
 }

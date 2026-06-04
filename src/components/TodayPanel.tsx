@@ -10,7 +10,6 @@ import type { TripDateInfo } from "../hooks/useTripDate";
 
 interface Props {
   trip: TripDateInfo;
-  booked: Record<string, boolean>;
   packed: Record<string, boolean>;
   preReady: Record<string, boolean>;
   onJumpToStop: (stopIndex: number) => void;
@@ -19,13 +18,12 @@ interface Props {
 
 export function TodayPanel({
   trip,
-  booked,
   packed,
   preReady,
   onJumpToStop,
   onGoToTab,
 }: Props) {
-  const bookingsDone = BOOKINGS.filter((b) => booked[b.id]).length;
+  const bookingsDone = BOOKINGS.filter((b) => b.confirmed).length;
   const packedDone = PACKING.filter((p) => packed[p.id]).length;
   const preDone = PRETRIP.filter((p) => preReady[p.id]).length;
 
@@ -33,7 +31,6 @@ export function TodayPanel({
     return (
       <BeforeView
         trip={trip}
-        booked={booked}
         bookingsDone={bookingsDone}
         packedDone={packedDone}
         preDone={preDone}
@@ -51,21 +48,19 @@ export function TodayPanel({
 
 function BeforeView({
   trip,
-  booked,
   bookingsDone,
   packedDone,
   preDone,
   onGoToTab,
 }: {
   trip: TripDateInfo;
-  booked: Record<string, boolean>;
   bookingsDone: number;
   packedDone: number;
   preDone: number;
   onGoToTab: (t: string) => void;
 }) {
   const unbookedCritical = BOOKINGS.filter(
-    (b) => b.priority <= 4 && !booked[b.id],
+    (b) => b.priority <= 4 && !b.confirmed,
   );
 
   return (

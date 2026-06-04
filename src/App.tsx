@@ -46,10 +46,6 @@ export default function App() {
 
   const [tab, setTab] = useState<TabKey>(initialTab);
 
-  const [booked, setBooked] = useLocalStorage<Record<string, boolean>>(
-    "alaska.booked",
-    {},
-  );
   const [packed, setPacked] = useLocalStorage<Record<string, boolean>>(
     "alaska.packed",
     {},
@@ -78,17 +74,11 @@ export default function App() {
     setCurrent: setCurrentIndex,
   });
 
-  // A booking counts as done if the user explicitly toggled it, OR (when
-  // untouched) if it's confirmed in the data from a reconciled receipt.
-  const effectiveBooked = useMemo(() => {
-    const out: Record<string, boolean> = {};
-    for (const b of BOOKINGS) out[b.id] = booked[b.id] ?? !!b.confirmed;
-    return out;
-  }, [booked]);
-
+  // Booking status is driven entirely by the `confirmed` flag (set from a
+  // reconciled receipt) — no separate per-device toggle to drift out of sync.
   const bookingsDone = useMemo(
-    () => BOOKINGS.filter((b) => effectiveBooked[b.id]).length,
-    [effectiveBooked],
+    () => BOOKINGS.filter((b) => b.confirmed).length,
+    [],
   );
   const packedDone = useMemo(
     () => PACKING.filter((p) => packed[p.id]).length,
@@ -142,7 +132,6 @@ export default function App() {
           {tab === "today" && (
             <TodayPanel
               trip={trip}
-              booked={effectiveBooked}
               packed={packed}
               preReady={preReady}
               onJumpToStop={jumpToStop}
@@ -178,10 +167,6 @@ export default function App() {
           )}
           {tab === "bookings" && (
             <BookingsPanel
-              booked={effectiveBooked}
-              onToggle={(id) =>
-                setBooked({ ...booked, [id]: !effectiveBooked[id] })
-              }
               confirmations={confirmations}
               setConfirmations={setConfirmations}
             />
