@@ -84,9 +84,19 @@ export function BookingsPanel({
                       >
                         {b.name}
                       </span>
-                      {hasConf && (
+                      {b.confirmed && (
                         <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700">
-                          conf saved
+                          confirmed
+                        </span>
+                      )}
+                      {b.confirmed === false && (
+                        <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-700">
+                          to book
+                        </span>
+                      )}
+                      {hasConf && (
+                        <span className="rounded-full bg-accent-100 px-1.5 py-0.5 text-[10px] font-medium text-accent-700">
+                          notes
                         </span>
                       )}
                     </div>
@@ -111,6 +121,19 @@ export function BookingsPanel({
                     <div className="mb-3">
                       <ActionLinks phone={b.phone} url={b.url} size="md" />
                     </div>
+
+                    {(b.confRef || b.bookedBy || b.paid || b.balanceDue) && (
+                      <dl className="mb-3 grid grid-cols-2 gap-x-4 gap-y-1.5 rounded-md bg-emerald-50/60 px-3 py-2 text-xs ring-1 ring-emerald-100">
+                        {b.confRef && (
+                          <Detail label="Confirmation" value={b.confRef} mono />
+                        )}
+                        {b.bookedBy && <Detail label="Booked by" value={b.bookedBy} />}
+                        {b.paid && <Detail label="Paid" value={b.paid} />}
+                        {b.balanceDue && (
+                          <Detail label="Balance due" value={b.balanceDue} warn />
+                        )}
+                      </dl>
+                    )}
 
                     {b.planB && (
                       <div className="mb-3 rounded-md bg-ink-50 px-3 py-2 text-xs leading-relaxed text-ink-600">
@@ -152,6 +175,35 @@ export function BookingsPanel({
           );
         })}
       </ul>
+    </div>
+  );
+}
+
+function Detail({
+  label,
+  value,
+  mono,
+  warn,
+}: {
+  label: string;
+  value: string;
+  mono?: boolean;
+  warn?: boolean;
+}) {
+  return (
+    <div>
+      <dt className="text-[10px] font-semibold uppercase tracking-wide text-ink-500">
+        {label}
+      </dt>
+      <dd
+        className={
+          "mt-0.5 " +
+          (mono ? "font-mono " : "") +
+          (warn ? "font-medium text-rose-700" : "text-ink-800")
+        }
+      >
+        {value}
+      </dd>
     </div>
   );
 }

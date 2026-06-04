@@ -6,3 +6,6 @@ dist
 *.log
 .vite
 *.tsbuildinfo
+
+# Booking confirmations — contain names, payment + contact info. Never commit.
+receipts/

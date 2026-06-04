@@ -76,9 +76,17 @@ export default function App() {
     setCurrent: setCurrentIndex,
   });
 
+  // A booking counts as done if the user explicitly toggled it, OR (when
+  // untouched) if it's confirmed in the data from a reconciled receipt.
+  const effectiveBooked = useMemo(() => {
+    const out: Record<string, boolean> = {};
+    for (const b of BOOKINGS) out[b.id] = booked[b.id] ?? !!b.confirmed;
+    return out;
+  }, [booked]);
+
   const bookingsDone = useMemo(
-    () => BOOKINGS.filter((b) => booked[b.id]).length,
-    [booked],
+    () => BOOKINGS.filter((b) => effectiveBooked[b.id]).length,
+    [effectiveBooked],
   );
   const packedDone = useMemo(
     () => PACKING.filter((p) => packed[p.id]).length,
@@ -168,8 +176,10 @@ export default function App() {
           )}
           {tab === "bookings" && (
             <BookingsPanel
-              booked={booked}
-              onToggle={(id) => setBooked({ ...booked, [id]: !booked[id] })}
+              booked={effectiveBooked}
+              onToggle={(id) =>
+                setBooked({ ...booked, [id]: !effectiveBooked[id] })
+              }
               confirmations={confirmations}
               setConfirmations={setConfirmations}
             />
