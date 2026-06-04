@@ -985,8 +985,10 @@ export const DAYS: Day[] = [
         id: "d10-return-car",
         time: "20:00",
         type: "checkin",
-        title: "Return rental car at ANC",
-        detail: "Allow 30 min for return + shuttle if off-site.",
+        title: "Refuel + return rental car at ANC",
+        detail:
+          "Top off the tank near the airport first — Budget charges a premium for refueling. Allow 30 min for return + shuttle if off-site.",
+        mapsQuery: "gas station near Anchorage airport",
       },
       {
         id: "d10-airport",

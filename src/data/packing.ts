@@ -16,6 +16,12 @@ export const PACKING: PackingItem[] = [
   { id: "motion-meds", label: "Dramamine / Bonine" },
   { id: "binoculars", label: "Binoculars" },
   { id: "bug-spray", label: "Bug spray (DEET)" },
+  { id: "head-net", label: "Head net", note: "Denali mosquitoes, early July" },
+  {
+    id: "bear-spray",
+    label: "Bear spray",
+    note: "Buy in AK — banned on flights + the bush plane. For self-guided hikes (Exit Glacier, Savage Alpine, Horseshoe Lake).",
+  },
   { id: "water-bottle", label: "Reusable water bottles" },
   { id: "phone-charger", label: "Portable phone charger" },
   { id: "offline-maps", label: "Offline Google Maps" },
