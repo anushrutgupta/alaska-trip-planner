@@ -12,6 +12,7 @@ import { ContactsPanel } from "./components/ContactsPanel";
 import { STOPS } from "./data/stops";
 import { BOOKINGS } from "./data/bookings";
 import { PACKING } from "./data/packing";
+import { SEED_EXPENSES } from "./data/seedExpenses";
 import { useStepNavigation } from "./hooks/useStepNavigation";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useTripDate } from "./hooks/useTripDate";
@@ -60,9 +61,10 @@ export default function App() {
   const [confirmations, setConfirmations] = useLocalStorage<
     Record<string, BookingConfirmation>
   >("alaska.confirmations", {});
+  // v2 key so the receipt-seeded ledger loads (old empty "alaska.expenses" ignored).
   const [expenses, setExpenses] = useLocalStorage<Expense[]>(
-    "alaska.expenses",
-    [],
+    "alaska.expenses.v2",
+    SEED_EXPENSES,
   );
   const [dayNotes, setDayNotes] = useLocalStorage<Record<string, string>>(
     "alaska.dayNotes",

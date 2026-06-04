@@ -25,6 +25,7 @@ export interface DayEvent {
   mapsQuery?: string; // Google Maps search query
   phone?: string;
   planB?: string;
+  bookingId?: string; // link to a BOOKINGS entry → surfaces its confirmation
 }
 
 export interface Day {
@@ -285,6 +286,7 @@ export const DAYS: Day[] = [
         detail:
           "Beach landing. Walking among coastal brown bears on tidal flats. Late June: clamming, sedge grazing, mating behavior, sows with cubs. Pilot/guide leads. Within 50–125 ft. Zoom lens recommended.",
         stopIndex: 6,
+        bookingId: "smokey-bay-air",
         planB:
           "If weather cancels: refund OR rebook tomorrow AM. Don't push to a third attempt — your buffer is Day 3 only.",
       },
@@ -450,6 +452,7 @@ export const DAYS: Day[] = [
         detail:
           "Resurrection Bay → Chiswell Islands (sea lions + puffins) → Cape Resurrection → Harris Bay → Northwestern Fjord. Three tidewater glaciers. Peak humpback season. Orcas common. Lunch served on board. Captain narrates the whole way.",
         stopIndex: 10,
+        bookingId: "kenai-fjords-cruise",
         planB:
           "Major Marine cancel rate <10%. If cancelled: full refund + push to a half-day tour same week (limited slots).",
       },
@@ -616,6 +619,7 @@ export const DAYS: Day[] = [
         detail:
           "8:30–10:15 AM. Fly through the Alaska Range — Denali's south + west faces, Ruth Glacier, Great Gorge. Set foot on the glacier in Denali NP. 6 adults across 2 planes.",
         stopIndex: 14,
+        bookingId: "tat-flightseeing",
         planB:
           "Weather: K2 lets you reschedule, take an alternate flight, or full-refund. Natural retries: this afternoon, or Jul 2 AM before the Denali drive.",
       },
@@ -787,6 +791,7 @@ export const DAYS: Day[] = [
         stopIndex: 17,
         mapsQuery: "Denali Bus Depot",
         phone: "+18006221297",
+        bookingId: "transit-bus",
         planB:
           "Bus cancel rate <5%; runs rain or shine. Smoking/alcohol not permitted on board.",
       },

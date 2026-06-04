@@ -1,4 +1,5 @@
 import type { DayEvent, EventType } from "../data/days";
+import { BOOKINGS } from "../data/bookings";
 import { ActionLinks } from "./ActionLinks";
 
 interface Props {
@@ -29,6 +30,10 @@ export function EventRow({
 }: Props) {
   const style = TYPE_STYLES[event.type];
   const isHighlight = event.type === "highlight";
+  const booking = event.bookingId
+    ? BOOKINGS.find((b) => b.id === event.bookingId)
+    : undefined;
+  const confRef = booking?.confRef;
 
   return (
     <div
@@ -96,7 +101,15 @@ export function EventRow({
                 {event.planB}
               </p>
             )}
-            {(event.phone || event.mapsQuery || event.stopIndex !== undefined) && (
+            {confRef && (
+              <div className="mt-1.5 inline-flex items-center gap-1 rounded-md bg-emerald-50 px-2 py-1 text-[11px] font-medium text-emerald-700 ring-1 ring-emerald-100">
+                <span className="uppercase tracking-wide text-emerald-600">Conf</span>
+                <span className="font-mono">{confRef}</span>
+              </div>
+            )}
+            {(event.phone ||
+              event.mapsQuery ||
+              event.stopIndex !== undefined) && (
               <div className="mt-2 flex flex-wrap gap-1.5">
                 <ActionLinks phone={event.phone} mapsQuery={event.mapsQuery} />
                 {event.stopIndex !== undefined && onJumpToStop && (
