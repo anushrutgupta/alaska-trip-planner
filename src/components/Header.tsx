@@ -49,7 +49,7 @@ export function Header({
           href="?print"
           target="_blank"
           rel="noreferrer"
-          className="hidden rounded-md border border-ink-200 px-2 py-0.5 text-[11px] font-medium text-ink-600 transition-colors hover:border-accent-400 hover:text-accent-700 sm:inline-block"
+          className="rounded-md border border-ink-200 px-2 py-0.5 text-[11px] font-medium text-ink-600 transition-colors hover:border-accent-400 hover:text-accent-700"
           title="Open a printable PDF packet"
         >
           PDF

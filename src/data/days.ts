@@ -508,10 +508,10 @@ export const DAYS: Day[] = [
         id: "d5-anc-dropoff",
         time: "11:30",
         duration: "30 min",
-        type: "transit",
-        title: "Anchorage friend drop-off",
+        type: "activity",
+        title: "Anchorage pass-through — last big city stop",
         detail:
-          "Friend leaving Jul 2 gets dropped at their ANC hotel here. They get Jul 1 solo (Museum + Heritage Center + Flattop).",
+          "Gas + any last grocery/pharmacy run before the north leg. All 6 continue to Talkeetna (everyone's on the Jul 1 flightseeing). Abhinav has his own car and drives himself back to ANC on Jul 2 — see Day 7.",
         stopIndex: 12,
       },
       {
@@ -672,6 +672,14 @@ export const DAYS: Day[] = [
     driveTime: "2.5 hrs",
     events: [
       { id: "d7-wake", time: "09:00", type: "wake", title: "Wake · Pack out of Talkeetna" },
+      {
+        id: "d7-friend-depart",
+        time: "09:15",
+        type: "note",
+        title: "Abhinav departs — drives himself to ANC",
+        detail:
+          "Abhinav has his own Anchorage rental and drives independently, so he heads south to ANC (2.5 hrs) for his flight while the group continues north to Denali. He's not on the Jul 3 bus (5 seats). No group logistics needed.",
+      },
       {
         id: "d7-flight-retry",
         time: "09:30",

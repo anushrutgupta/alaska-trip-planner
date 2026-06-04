@@ -175,7 +175,7 @@ export const STOPS: Stop[] = [
   },
   {
     index: 12,
-    label: "Anchorage (drop-off)",
+    label: "Anchorage (pass-through)",
     lat: 61.218,
     lng: -149.9,
     day: "Day 5",
@@ -184,7 +184,7 @@ export const STOPS: Stop[] = [
     distance: "125 mi · 2.5 hrs",
     region: "Anchorage",
     description:
-      "Depart Seward ~9 AM. Drive Seward Hwy north — National Scenic Byway, second pass at Turnagain Arm in different light. Pass through ANC ~noon. Friend leaving Jul 2 drops here at an airport-area hotel — they get Jul 1 solo (Museum, Heritage Center, Flattop, Coastal Trail). Quick lunch. Continue north.",
+      "Depart Seward ~9 AM. Drive Seward Hwy north — National Scenic Byway, second pass at Turnagain Arm in different light. Pass through ANC ~noon: lunch + gas + any city errands (last big grocery/pharmacy before Talkeetna/Denali). All 6 continue north through the Jul 1 flightseeing; Abhinav (his own car) drives himself back to ANC on Jul 2.",
   },
   {
     index: 13,

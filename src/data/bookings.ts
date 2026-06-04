@@ -15,6 +15,7 @@ export interface Booking {
   bookedBy?: string;
   paid?: string;
   balanceDue?: string;
+  balanceDueAmount?: number; // numeric, for the outstanding-balance rollup
 }
 
 export const BOOKINGS: Booking[] = [
@@ -72,6 +73,7 @@ export const BOOKINGS: Booking[] = [
     bookedBy: "Anushrut",
     paid: "$1,852.50",
     balanceDue: "$1,627.50",
+    balanceDueAmount: 1627.5,
   },
   {
     id: "transit-bus",
@@ -156,6 +158,7 @@ export const BOOKINGS: Booking[] = [
     bookedBy: "Deeksha + Rachita",
     paid: "$278.25 + $239.00",
     balanceDue: "$278.25 + $262.90",
+    balanceDueAmount: 541.15,
   },
   {
     id: "anchorage-lodging",

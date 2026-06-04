@@ -4,6 +4,13 @@ import { EventRow } from "./EventRow";
 import { TideStrip } from "./TideStrip";
 import type { TripDateInfo } from "../hooks/useTripDate";
 
+// "Sun Jun 28" + "2026-06-28" → "Sun 6/28" (weekday + numeric date)
+function weekdayMD(dateLabel: string, dateISO: string): string {
+  const weekday = dateLabel.split(" ")[0];
+  const [, m, d] = dateISO.split("-");
+  return `${weekday} ${parseInt(m, 10)}/${parseInt(d, 10)}`;
+}
+
 interface Props {
   trip: TripDateInfo;
   notes: Record<string, string>;
@@ -62,7 +69,7 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
             >
               <span className="font-semibold">{d.label}</span>
               <span className={isActive ? "text-white/80" : "text-ink-500"}>
-                {d.date.split(" ").slice(0, 2).join(" ")}
+                {weekdayMD(d.date, d.dateISO)}
               </span>
             </button>
           );

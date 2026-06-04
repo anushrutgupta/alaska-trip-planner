@@ -23,6 +23,11 @@ export function BookingsPanel({ confirmations, setConfirmations }: Props) {
     });
   }
 
+  const outstanding = BOOKINGS.reduce(
+    (sum, b) => sum + (b.balanceDueAmount ?? 0),
+    0,
+  );
+
   return (
     <div className="scroll-soft h-full overflow-y-auto px-6 py-5">
       <div className="mb-4">
@@ -34,6 +39,22 @@ export function BookingsPanel({ confirmations, setConfirmations }: Props) {
           jot a contact name.
         </p>
       </div>
+
+      {outstanding > 0 && (
+        <div className="mb-4 flex items-center justify-between rounded-xl border border-rose-200 bg-rose-50/60 px-4 py-3">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-rose-700">
+              Balance still due
+            </div>
+            <div className="mt-0.5 text-[11px] text-ink-500">
+              Talkeetna lodging + K2 flightseeing · plus the rental car at pickup
+            </div>
+          </div>
+          <div className="text-xl font-semibold tabular-nums text-rose-700">
+            ${outstanding.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          </div>
+        </div>
+      )}
 
       <ul className="space-y-2">
         {BOOKINGS.map((b) => {
