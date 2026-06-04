@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import {
   ACTIVITIES,
+  categoryTotal,
   GROUP_TOTAL,
   LOGISTICS,
   PER_PERSON_TOTAL,
@@ -77,7 +78,7 @@ function Category({ category }: { category: BudgetCategory }) {
       <div className="flex items-baseline justify-between border-b border-ink-100 px-5 py-3">
         <h3 className="text-sm font-semibold text-ink-900">{category.title}</h3>
         <span className="text-sm font-semibold tabular-nums text-ink-900">
-          {fmt(category.total)}
+          {fmt(categoryTotal(category))}
           <span className="ml-1 text-xs font-normal text-ink-500">/pp</span>
         </span>
       </div>
@@ -87,7 +88,14 @@ function Category({ category }: { category: BudgetCategory }) {
             key={l.label}
             className="flex items-center justify-between px-5 py-2.5 text-sm"
           >
-            <span className="text-ink-700">{l.label}</span>
+            <span className="text-ink-700">
+              {l.label}
+              {l.estimated && (
+                <span className="ml-1.5 text-[10px] uppercase tracking-wide text-ink-400">
+                  est.
+                </span>
+              )}
+            </span>
             <span className="tabular-nums text-ink-600">{fmt(l.amount)}</span>
           </li>
         ))}

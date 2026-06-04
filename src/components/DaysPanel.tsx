@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { DAYS } from "../data/days";
 import { EventRow } from "./EventRow";
+import { TideStrip } from "./TideStrip";
 import type { TripDateInfo } from "../hooks/useTripDate";
 
 interface Props {
@@ -116,6 +117,7 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
         {day.weather && (
           <p className="mt-1.5 text-xs leading-relaxed text-ink-500">{day.weather}</p>
         )}
+        <TideStrip dateISO={day.dateISO} />
       </div>
 
       {/* Schedule */}
