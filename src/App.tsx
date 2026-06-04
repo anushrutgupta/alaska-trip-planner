@@ -142,7 +142,7 @@ export default function App() {
           {tab === "today" && (
             <TodayPanel
               trip={trip}
-              booked={booked}
+              booked={effectiveBooked}
               packed={packed}
               preReady={preReady}
               onJumpToStop={jumpToStop}

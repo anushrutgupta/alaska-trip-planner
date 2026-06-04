@@ -45,6 +45,15 @@ export function Header({
         <div className="text-[11px] text-ink-500 sm:text-xs">
           Jun 25 – Jul 5  ·  6 travelers
         </div>
+        <a
+          href="?print"
+          target="_blank"
+          rel="noreferrer"
+          className="hidden rounded-md border border-ink-200 px-2 py-0.5 text-[11px] font-medium text-ink-600 transition-colors hover:border-accent-400 hover:text-accent-700 sm:inline-block"
+          title="Open a printable PDF packet"
+        >
+          PDF
+        </a>
       </div>
       <nav className="scroll-soft -mx-1 flex flex-nowrap items-center gap-1 overflow-x-auto pb-1 lg:mx-0 lg:flex-wrap lg:overflow-visible lg:pb-0">
         {TABS.map((t) => {

@@ -46,7 +46,7 @@ export const BOOKINGS: Booking[] = [
     url: "https://destinationakcharters.com",
     price: "~$970/pp paid",
     notes:
-      "6 people. Was planned as Smokey Bay Air — actually booked with Destination Alaska Adventure Co. (Northwind Aviation). Online waivers + accurate body weights required. 45-min bush flight each way; 2–3 hrs on site.",
+      "6 people. Destination Alaska Adventure Co. (Northwind Aviation). Online waivers + accurate body weights required. 45-min bush flight each way; 2–3 hrs on site.",
     planB:
       "Weather delays common — keep the day flexible. Full refund or reschedule if they cancel.",
     confirmed: true,
@@ -64,7 +64,7 @@ export const BOOKINGS: Booking[] = [
     url: "https://flyk2.com",
     price: "$580/pp",
     notes:
-      "6 adults, Denali Flyer with Glacier Landing. Booked with K2 (not TAT). Bring sunglasses + camera; headset, glacier overboots provided. NPS park fee is covered by the Jul 3 transit bus (within 7 days) — no separate pass needed.",
+      "6 adults, Denali Flyer with Glacier Landing. Bring sunglasses + camera; headset and glacier overboots provided. NPS park fee is covered by the Jul 3 transit bus (within 7 days) — no separate pass needed.",
     planB:
       "Weather: K2 lets you reschedule, take an alternate flight, or cancel for a full refund. Jun 30 PM (on arrival) + Jul 2 AM are natural retry windows if Jul 1 scrubs.",
     confirmed: true,
@@ -123,7 +123,7 @@ export const BOOKINGS: Booking[] = [
     contact: "1603 Seward Hwy, Seward",
     price: "—",
     notes:
-      "Not Harbor 360 (the plan's pick) — Harbor 360 is still the cruise check-in dock. Check-in 3–9 PM.",
+      "Cruise checks in separately at the Harbor 360 dock (1412 4th Ave). Motel check-in 3–9 PM.",
     confirmed: true,
   },
   {
@@ -181,7 +181,7 @@ export const BOOKINGS: Booking[] = [
     url: "https://airbnb.com",
     price: "—",
     notes:
-      "3BR A-Frame w/ King Loft Suite. Not the Courtyard the plan assumed. Land 11:41 PM → check in late (keypad). Checkout Jun 26 11 AM.",
+      "3BR A-Frame w/ King Loft Suite (host Amara). Land 11:41 PM → self check-in late via keypad. Checkout Jun 26 11 AM.",
     confirmed: true,
   },
   {

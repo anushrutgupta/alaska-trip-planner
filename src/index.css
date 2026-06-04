@@ -117,3 +117,23 @@ a {
   background: transparent !important;
   border: none !important;
 }
+
+/* Print packet (?print) */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-doc {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  @page {
+    margin: 14mm;
+  }
+}
+.break-inside-avoid {
+  break-inside: avoid;
+}
+.break-inside-avoid-page {
+  break-inside: avoid;
+}

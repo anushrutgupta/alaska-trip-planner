@@ -85,13 +85,15 @@ function BeforeView({
           </div>
         </div>
         <p className="mt-2 text-sm leading-relaxed text-ink-600">
-          {trip.daysUntilTrip > 60
-            ? "Time to start booking the hard-to-get stuff."
+          {unbookedCritical.length > 0
+            ? trip.daysUntilTrip > 14
+              ? "Lock in the sell-out activities — cruise, bears, glaciers, bus."
+              : "Final stretch — book the remaining sell-out activities ASAP."
             : trip.daysUntilTrip > 14
-              ? "Lock in flights + lodging if you haven't. Cruise + bears + glaciers sell out fast."
+              ? "Big-ticket activities are all booked. Pay the remaining balances, then start pre-trip prep."
               : trip.daysUntilTrip > 3
-                ? "Final week. Pack, body weights, offline maps, prescriptions, group chat."
-                : "Departure imminent. Last call for everything."}
+                ? "Final week. Body weights, offline maps, prescriptions, packing, balances due."
+                : "Departure imminent — pack and confirm pickup times."}
         </p>
       </div>
 

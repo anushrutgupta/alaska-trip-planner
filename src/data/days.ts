@@ -213,7 +213,7 @@ export const DAYS: Day[] = [
         type: "checkin",
         title: "Watch for Destination Alaska check-in text",
         detail:
-          "Booked with Destination Alaska / Northwind (conf 349623320), not Smokey Bay. They text/WhatsApp tomorrow's exact check-in time (tide-dependent). Meet at Beluga Lake Office, 1184 Lakeshore Dr. Set alarms accordingly.",
+          "Destination Alaska / Northwind (conf 349623320) text/WhatsApp tomorrow's exact check-in time (tide-dependent). Meet at Beluga Lake Office, 1184 Lakeshore Dr. Set alarms accordingly.",
         mapsQuery: "1184 Lakeshore Drive, Homer AK",
         phone: "+19074354011",
       },
@@ -763,7 +763,7 @@ export const DAYS: Day[] = [
         time: "07:30",
         type: "wake",
         title: "Wake — no 5 AM today",
-        detail: "Booked bus departs 9:30 AM (not the 6 AM the old plan assumed). Relaxed morning.",
+        detail: "Bus departs 9:30 AM — no pre-dawn start. Relaxed morning.",
       },
       {
         id: "d8-coffee",

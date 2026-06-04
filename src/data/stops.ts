@@ -247,10 +247,10 @@ export const STOPS: Stop[] = [
     day: "Day 8",
     date: "Fri Jul 3",
     mode: "bus",
-    distance: "43 mi · ~7–8 hrs RT",
+    distance: "43 mi · ~7 hrs RT",
     region: "Denali",
     description:
-      "5:15 AM wake, ~6 AM East Fork Transit Bus. Mile 43 (Murie Cabin) is the deepest visitors can go in 2026 — Pretty Rocks landslide closed the road past this point. Expect grizzlies foraging on tundra, caribou herds, Dall sheep on ridgelines, moose in willows. Hop off at Igloo Canyon (Mile 34) for a tundra hike — no trails, just walk across open tundra and flag the next bus. $33.50/pp.",
+      "East Fork Transit Bus departs 9:30 AM (conf 3EY7SH) — arrive the Denali Bus Depot by 9:10. Mile 43 (Murie Cabin) is the deepest visitors can go in 2026 — Pretty Rocks landslide closed the road past this point. Expect grizzlies foraging on tundra, caribou herds, Dall sheep on ridgelines, moose in willows. Hop off at Igloo Canyon (Mile 34) for a tundra hike — no trails, just walk across open tundra and flag the next bus. $33.50/pp.",
     highlight: true,
   },
   {
