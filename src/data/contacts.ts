@@ -37,11 +37,12 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "tat",
-        name: "Talkeetna Air Taxi",
-        role: "Flightseeing + glacier (Jul 1) · NOT YET BOOKED",
-        phone: "+19077332218",
-        url: "https://talkeetnaair.com",
-        notes: "Status call AM of flight. Body weights required. No confirmation on file yet.",
+        name: "K2 Aviation",
+        role: "Flightseeing + glacier (Jul 1, 8:30 AM) · conf 353115058",
+        phone: "+18007642291",
+        url: "https://flyk2.com",
+        address: "14052 E 2nd St, Talkeetna",
+        notes: "Check in at the K2 airport office 8:00 AM (30 min before). Balance $1,627.50 due. They call if weather forces a change.",
       },
       {
         id: "denali-bus",

@@ -542,11 +542,11 @@ export const DAYS: Day[] = [
         time: "16:30",
         duration: "15 min",
         type: "checkin",
-        title: "TAT office — confirm tomorrow",
+        title: "K2 Aviation — confirm tomorrow's 8:30 flight",
         detail:
-          "Verify body weights, ask about PM standby slot today (bonus attempt) if skies look clear.",
-        phone: "+19077332218",
-        mapsQuery: "Talkeetna Air Taxi",
+          "Conf 353115058. Confirm the AM slot; if skies are clear on arrival, ask about a bonus standby flight this afternoon.",
+        phone: "+18007642291",
+        mapsQuery: "K2 Aviation Talkeetna",
       },
       {
         id: "d5-roadhouse",
@@ -584,31 +584,40 @@ export const DAYS: Day[] = [
     sunrise: "04:33",
     sunset: "23:33",
     weather:
-      "Mornings clearest before afternoon convection. TAT will text status by 07:30.",
+      "Mornings clearest before afternoon convection — your 8:30 AM slot is the smart pick. K2 calls if weather forces a change.",
     events: [
-      { id: "d6-wake", time: "07:00", type: "wake", title: "Wake" },
-      { id: "d6-breakfast", time: "07:30", type: "meal", title: "Breakfast (Roadhouse rolls)" },
+      { id: "d6-wake", time: "06:45", type: "wake", title: "Wake" },
+      { id: "d6-breakfast", time: "07:10", type: "meal", title: "Breakfast (Roadhouse rolls)" },
+      {
+        id: "d6-drive-k2",
+        time: "07:40",
+        type: "drive",
+        title: "Drive to K2 Aviation",
+        detail: "14052 E 2nd St (Talkeetna airport), ~15–20 min from the lodge.",
+        mapsQuery: "K2 Aviation Talkeetna",
+      },
       {
         id: "d6-tat-status",
         time: "08:00",
-        duration: "15 min",
+        duration: "30 min",
         type: "checkin",
-        title: "TAT status check",
+        title: "Check in at K2 · weigh-in · briefing",
         detail:
-          "If they say 'go' — head to the office. If 'standby' — wait for the next call (usually within an hour).",
-        phone: "+19077332218",
+          "Conf 353115058. Check in 30 min before. They verify weights and fit glacier overboots. Headsets provided. NPS fee covered by the Jul 3 bus.",
+        phone: "+18007642291",
+        mapsQuery: "K2 Aviation Talkeetna",
       },
       {
         id: "d6-flight",
-        time: "09:00",
+        time: "08:30",
         duration: "1 hr 45 min",
         type: "highlight",
-        title: "Mountain Voyager + Glacier Landing",
+        title: "Denali Flyer + Glacier Landing (K2)",
         detail:
-          "Fly through the Alaska Range — Denali's south + west faces, Ruth Glacier, Great Gorge, Kahiltna Glacier. Land in the Don Sheldon Amphitheater. ~20 min on the glacier. 5 ppl = 2 planes; confirm simultaneous.",
+          "8:30–10:15 AM. Fly through the Alaska Range — Denali's south + west faces, Ruth Glacier, Great Gorge. Set foot on the glacier in Denali NP. 6 adults across 2 planes.",
         stopIndex: 14,
         planB:
-          "If cancelled AM: retry PM. If cancelled all day: try again Jul 2 AM en route to Denali. After 3 attempts, accept refund.",
+          "Weather: K2 lets you reschedule, take an alternate flight, or full-refund. Natural retries: this afternoon, or Jul 2 AM before the Denali drive.",
       },
       {
         id: "d6-lunch",
