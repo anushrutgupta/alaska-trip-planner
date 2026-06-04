@@ -26,7 +26,7 @@ export const STOPS: Stop[] = [
     distance: "",
     region: "Anchorage",
     description:
-      "Land 11:41 PM. Pick up rental at the airport counter (open late for Alaska arrivals). Drive 5 min to airport hotel (Courtyard ANC Airport, SpringHill Suites, or similar). ~$160/room.",
+      "Land 11:41 PM. Pick up the Budget Ford Expedition Max at the counter (open until 1:45 AM). Drive ~10 min to Glacier Chalet — a 3BR A-Frame Airbnb at 2815 Glacier St (host Amara). Self check-in via keypad.",
   },
   {
     index: 1,
@@ -91,7 +91,7 @@ export const STOPS: Stop[] = [
     distance: "75 mi · 1.5 hrs",
     region: "Homer",
     description:
-      "Arrive ~4 PM. End of the road. Walk the 4.5-mile Homer Spit — fishing charters, shops, Salty Dawg Saloon (must-visit dive bar in a lighthouse-shaped cabin), Kachemak Bay views, glaciers + volcanoes across the water. Dinner on the Spit: Captain Pattie's, La Baleine, or Fat Olives. Check in with Smokey Bay (2100 Kachemak Dr) to confirm tomorrow's tide-dependent departure. Sleep Homer (1 of 2).",
+      "Arrive ~4 PM. End of the road. Walk the 4.5-mile Homer Spit — fishing charters, shops, Salty Dawg Saloon (must-visit dive bar in a lighthouse-shaped cabin), Kachemak Bay views, glaciers + volcanoes across the water. Dinner on the Spit: Captain Pattie's, La Baleine, or Fat Olives. Watch for Destination Alaska's text/WhatsApp with tomorrow's tide-dependent bear-flight check-in time (meet at Beluga Lake Office, 1184 Lakeshore Dr). Sleep Homer (1 of 2).",
   },
   {
     index: 6,
@@ -104,7 +104,7 @@ export const STOPS: Stop[] = [
     distance: "~1 hr flight",
     region: "Lake Clark",
     description:
-      "Smokey Bay Air, ~8 AM (tide-dependent). Bush plane across Cook Inlet — Redoubt, Iliamna, glaciers, coastline. Beach landing at Chinitna Bay or Silver Salmon Creek. 3 hrs walking among coastal brown bears on tidal flats with pilot/guide. Late June = clamming, sedge grazing, mating-season behavior, sows with cubs. Within 50–125 ft of bears. No platforms, no fences. ~$625/pp.",
+      "Destination Alaska / Northwind (conf 349623320), ~8 AM (tide-dependent). Bush plane across Cook Inlet — Redoubt, Iliamna, glaciers, coastline. Beach landing at Chinitna Bay or Silver Salmon Creek. 3 hrs walking among coastal brown bears on tidal flats with pilot/guide. Late June = clamming, sedge grazing, mating-season behavior, sows with cubs. Within 50–125 ft of bears. No platforms, no fences. ~$970/pp (6 booked).",
     highlight: true,
   },
   {
@@ -144,7 +144,7 @@ export const STOPS: Stop[] = [
     distance: "12 mi back",
     region: "Seward",
     description:
-      "Back to town. Walk the harbor — fishing boats, sea otters, mountain backdrop. Check in at Harbor 360 Hotel — cruise dock is literally behind it. Dinner: Chinooks Waterfront (seafood) or Resurrect Art Coffee House. Sleep Seward (1 of 2).",
+      "Back to town. Walk the harbor — fishing boats, sea otters, mountain backdrop. Check in at Marina Motel (1603 Seward Hwy). Note tomorrow's cruise checks in separately at the Harbor 360 dock (1412 4th Ave). Dinner: Chinooks Waterfront (seafood) or Resurrect Art Coffee House. Sleep Seward (1 of 2).",
   },
   {
     index: 10,
@@ -197,7 +197,7 @@ export const STOPS: Stop[] = [
     distance: "113 mi · 2.5 hrs",
     region: "Talkeetna",
     description:
-      "Arrive 3–4 PM. Mountain town at the base of Denali. Check in at TAT office (confirm booking, ask about weather). If skies look clear: ask about a PM standby flight — bonus attempt. Walk downtown: Roadhouse cinnamon rolls, Denali Brewing taproom, Nagley's General Store, river overlook. Sleep Talkeetna (1 of 2). 3BR VRBO cabin (lakefront, hot tub, kitchen) is the move.",
+      "Arrive 3–4 PM. Mountain town at the base of Denali. Confirm tomorrow's 8:30 AM K2 flight; if skies look clear, ask about a PM standby — bonus attempt. Walk downtown: Roadhouse cinnamon rolls, Denali Brewing taproom, Nagley's General Store, river overlook. Sleep Talkeetna (1 of 2) — split across Talkeetna Denali View Lodge (Trapper's Cabin) + Liberty Farms (Bunk Suite).",
   },
   {
     index: 14,
@@ -210,7 +210,7 @@ export const STOPS: Stop[] = [
     distance: "~45 min · 1h 45m total",
     region: "Alaska Range",
     description:
-      "TAT Mountain Voyager + Glacier Landing, primary attempt. AM = best weather odds. Fly through the Alaska Range — Denali's south and west faces, Ruth Glacier, Great Gorge (deepest in North America), Kahiltna Glacier. Land in the Don Sheldon Amphitheater. ~20 min on the glacier. $525 + $15 NPS per person. 5 ppl = 2 planes; confirm simultaneous departure. Back in Talkeetna — sleep there (2 of 2). PM options if flight succeeded: Talkeetna Historical Society Museum, river confluence walk, Denali State Park viewpoint, Denali Brewing.",
+      "K2 Aviation Denali Flyer + Glacier Landing (conf 353115058), 8:30–10:15 AM. AM = best weather odds. Fly through the Alaska Range — Denali's south and west faces, Ruth Glacier, Great Gorge (deepest in North America), Kahiltna Glacier. Land in the Don Sheldon Amphitheater. $580/pp; 6 adults across 2 planes. NPS fee covered by the Jul 3 transit bus. Back in Talkeetna — sleep there (2 of 2). PM options: Talkeetna Historical Society Museum, river confluence walk, Denali State Park viewpoint, Denali Brewing.",
     highlight: true,
   },
   {
@@ -237,7 +237,7 @@ export const STOPS: Stop[] = [
     distance: "150 mi · 2.5 hrs",
     region: "Denali",
     description:
-      "Arrive ~1 PM. Check in (Carlo Creek cabins 15 min south = best for 5 ppl, or Denali Bluffs / McKinley Chalet). PM: Visitor Center + park film (20 min), Horseshoe Lake Trail (easy 2 mi loop, beaver lodge), or drive to Mile 15 (Savage River — farthest you can take your own car). Pack lunch, charge everything, alarms for 5 AM. Sleep Denali (1 of 2).",
+      "Arrive ~1 PM. Check in at Denali RV Park & Motel (Mile 245.1 Parks Hwy, Healy). PM: Visitor Center + park film (20 min), Horseshoe Lake Trail (easy 2 mi loop, beaver lodge), or drive to Mile 15 (Savage River — farthest you can take your own car). Pack tomorrow's lunch + layers; the transit bus departs a relaxed 9:30 AM. Sleep Denali (1 of 2).",
   },
   {
     index: 17,

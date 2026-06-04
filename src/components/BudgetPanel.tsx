@@ -35,7 +35,8 @@ export function BudgetPanel({ expenses, setExpenses }: Props) {
           Budget
         </h2>
         <p className="mt-1 text-sm text-ink-500">
-          Plan estimates above, live group ledger below.
+          Activities + car are actual (paid); lodging part-actual, rest
+          estimated. Excludes flights. Live group ledger below.
         </p>
       </div>
 

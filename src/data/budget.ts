@@ -9,14 +9,19 @@ export interface BudgetCategory {
   lines: BudgetLine[];
 }
 
+// Updated 2026-06-03 once the big-ticket items were booked. Activities + rental
+// car are ACTUAL per-person (paid). Lodging is 3-of-6 actual + estimates for the
+// two motels and the arrival-night Airbnb (prices not on those confirmations).
+// Excludes flights to/from Anchorage.
+
 export const ACTIVITIES: BudgetCategory = {
-  title: "Activities",
-  total: 1601,
+  title: "Activities (actual)",
+  total: 1996,
   lines: [
-    { label: "Lake Clark Bears (Smokey Bay)", amount: 625 },
-    { label: "Flightseeing (TAT + glacier)", amount: 540 },
-    { label: "Kenai Fjords Cruise", amount: 330 },
-    { label: "Transit Bus (Denali)", amount: 34 },
+    { label: "Lake Clark bears — Destination Alaska", amount: 970 },
+    { label: "Flightseeing + glacier — K2", amount: 580 },
+    { label: "Kenai Fjords cruise — Major Marine", amount: 340 },
+    { label: "Denali transit bus", amount: 34 },
     { label: "AWCC", amount: 15 },
     { label: "Anchorage Museum", amount: 20 },
     { label: "Heritage Center", amount: 25 },
@@ -26,18 +31,16 @@ export const ACTIVITIES: BudgetCategory = {
 
 export const LOGISTICS: BudgetCategory = {
   title: "Logistics",
-  total: 2060,
+  total: 1811,
   lines: [
-    { label: "Lodging (10 nights, shared)", amount: 1050 },
-    { label: "Rental car (11 days ÷ 6→5)", amount: 310 },
-    { label: "Gas (~1,400 mi)", amount: 50 },
-    { label: "Food (10 days × $55)", amount: 550 },
-    { label: "Misc (tips, parking, souvenirs)", amount: 100 },
+    { label: "Lodging (3 of 6 actual, rest est.)", amount: 745 },
+    { label: "Rental car — Budget (actual)", amount: 366 },
+    { label: "Gas (~1,400 mi, est.)", amount: 50 },
+    { label: "Food (10 days, est.)", amount: 550 },
+    { label: "Misc (tips, parking, est.)", amount: 100 },
   ],
 };
 
-// Headline numbers match the user's rounded estimates from the itinerary.
-// Line items sum to ~$3,661 — the small gap is rounding, not error.
-export const PER_PERSON_TOTAL = 3650;
-export const GROUP_TOTAL = 21900;
+export const PER_PERSON_TOTAL = 3807;
+export const GROUP_TOTAL = 22800;
 export const TRAVELERS = 6;

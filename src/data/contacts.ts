@@ -196,7 +196,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
         name: "NOAA Tide Predictions",
         role: "Reference (Homer Spit)",
         url: "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9455500",
-        notes: "Smokey Bay's tide call comes from here.",
+        notes: "Destination Alaska's bear-flight tide call comes from here.",
       },
       {
         id: "weather",

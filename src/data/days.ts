@@ -672,10 +672,11 @@ export const DAYS: Day[] = [
         id: "d7-flight-retry",
         time: "09:30",
         type: "flex",
-        title: "One final flightseeing retry (if pending)",
-        detail: "If TAT calls with a window, take it. Otherwise drive.",
-        phone: "+19077332218",
+        title: "Flightseeing rain-check (only if Jul 1 scrubbed)",
+        detail: "If yesterday's K2 flight got weather-cancelled and they offer a morning window, take it before driving. Otherwise head out.",
+        phone: "+18007642291",
       },
+
       {
         id: "d7-depart-tal",
         time: "10:30",

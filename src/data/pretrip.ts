@@ -11,7 +11,7 @@ export const PRETRIP: PreTripItem[] = [
     id: "ids",
     label: "Photo IDs · everyone",
     category: "docs",
-    note: "Smokey Bay + TAT both verify at check-in.",
+    note: "Destination Alaska + K2 both verify at check-in.",
   },
   {
     id: "confirmations",
@@ -88,7 +88,7 @@ export const PRETRIP: PreTripItem[] = [
     id: "body-weights",
     label: "Collect everyone's body weight",
     category: "group",
-    note: "Smokey Bay + TAT need them. Dressed-with-camera weight. Email a sheet to both operators 48 hrs ahead.",
+    note: "Destination Alaska + K2 need them (done at booking — keep them current). Dressed-with-camera weight; being off by 15+ lbs can mean no fly, no refund.",
   },
   {
     id: "venmo",
