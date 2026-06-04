@@ -16,6 +16,9 @@ interface Props {
   hoveredIndex: number | null;
   onSelect: (index: number) => void;
   onHover: (index: number | null) => void;
+  /** Changes when the active tab changes; triggers a Leaflet resize fix
+   *  after the container is un-hidden on mobile. */
+  revision?: string;
 }
 
 const TILE_URL =
@@ -51,8 +54,20 @@ export function MapView(props: Props) {
         position={[stops[props.currentIndex].lat, stops[props.currentIndex].lng]}
       />
       <PanToSelected {...props} />
+      <RevalidateSize revision={props.revision} />
     </MapContainer>
   );
+}
+
+/* Re-measure after the container is shown again (mobile tab switches put it
+ * through display:none, which leaves Leaflet with a stale/zero size). */
+function RevalidateSize({ revision }: { revision?: string }) {
+  const map = useMap();
+  useEffect(() => {
+    const id = setTimeout(() => map.invalidateSize(), 80);
+    return () => clearTimeout(id);
+  }, [revision, map]);
+  return null;
 }
 
 /* --------------------------------------------------------------------- */

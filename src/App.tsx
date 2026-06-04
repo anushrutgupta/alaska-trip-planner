@@ -101,6 +101,10 @@ export default function App() {
     // navigate away from where they were reading.
   }
 
+  // The map is only useful on Journey + Today. On mobile, hide it for the
+  // other tabs so the panel gets the full screen (desktop keeps the split).
+  const mapUseful = tab === "journey" || tab === "today";
+
   return (
     <div className="flex h-full flex-col bg-white">
       <Header
@@ -116,13 +120,19 @@ export default function App() {
 
       <main className="flex min-h-0 flex-1 flex-col lg:flex-row">
         {/* Map: stacked on top (40vh) on mobile, left ~55% on desktop. */}
-        <section className="relative h-[40vh] shrink-0 border-b border-ink-200 lg:h-full lg:basis-[55%] lg:border-b-0 lg:border-r">
+        <section
+          className={
+            "relative shrink-0 border-b border-ink-200 lg:block lg:h-full lg:basis-[55%] lg:border-b-0 lg:border-r " +
+            (mapUseful ? "block h-[40vh]" : "hidden")
+          }
+        >
           <MapView
             stops={STOPS}
             currentIndex={currentIndex}
             hoveredIndex={hoveredIndex}
             onSelect={setCurrentIndex}
             onHover={setHoveredIndex}
+            revision={tab}
           />
           <MapLegend />
         </section>
