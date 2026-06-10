@@ -74,6 +74,22 @@ export default function App() {
     setCurrent: setCurrentIndex,
   });
 
+  // iOS: the keyboard overlays the layout viewport and only shrinks the
+  // visual one, so a focused input near the bottom ends up hidden. Nudge it
+  // into view once the keyboard has finished sliding in (~300ms).
+  useEffect(() => {
+    const onFocusIn = (e: FocusEvent) => {
+      const el = e.target as HTMLElement;
+      if (!el.matches?.("input, textarea, select")) return;
+      setTimeout(
+        () => el.scrollIntoView({ block: "nearest", behavior: "smooth" }),
+        300,
+      );
+    };
+    document.addEventListener("focusin", onFocusIn);
+    return () => document.removeEventListener("focusin", onFocusIn);
+  }, []);
+
   // Booking status is driven entirely by the `confirmed` flag (set from a
   // reconciled receipt) — no separate per-device toggle to drift out of sync.
   const bookingsDone = useMemo(

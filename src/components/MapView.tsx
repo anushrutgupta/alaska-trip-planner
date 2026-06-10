@@ -46,6 +46,10 @@ export function MapView(props: Props) {
       zoomControl
       className="h-full w-full"
       attributionControl
+      // Canvas renderer: `tolerance` adds a 12px tap halo around every
+      // circle marker / polyline — SVG hit-testing has no slop concept,
+      // and the 18px markers are too small for thumbs without it.
+      renderer={L.canvas({ tolerance: 12 })}
     >
       {/* crossOrigin is load-bearing: without it the service worker caches
           tiles as opaque responses, which browsers quota-account at ~7 MB

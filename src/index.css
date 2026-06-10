@@ -31,6 +31,25 @@ body {
 button,
 a {
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Kill the body rubber-band bounce in standalone mode (inner panels keep
+   their natural scroll). */
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+/* iOS Safari auto-zooms the page when a focused control's font is under
+   16px — the single biggest "clunky PWA" feel. Touch devices only, so
+   desktop keeps its compact density. */
+@media (pointer: coarse) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }
 
 /* Scrollbar polish */
@@ -70,6 +89,15 @@ a {
 .leaflet-control-zoom a:hover {
   background: #f3f4f6 !important;
   color: #111827 !important;
+}
+/* 44px minimum touch targets for the zoom buttons on touch devices */
+@media (pointer: coarse) {
+  .leaflet-control-zoom a {
+    width: 44px !important;
+    height: 44px !important;
+    line-height: 42px !important;
+    font-size: 20px !important;
+  }
 }
 .leaflet-bar {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
