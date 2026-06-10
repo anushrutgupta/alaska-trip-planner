@@ -283,7 +283,11 @@ export default function App() {
               today={trip.today}
             />
           )}
-          {tab === "contacts" && <ContactsPanel />}
+          {tab === "contacts" && (
+            <ContactsPanel
+              today={trip.phase === "during" ? trip.today : undefined}
+            />
+          )}
         </section>
       </main>
 

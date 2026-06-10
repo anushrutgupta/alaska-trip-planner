@@ -6,6 +6,7 @@ import {
   LOGISTICS,
   PER_PERSON_TOTAL,
   TRAVELERS,
+  TRAVELER_NAMES,
   type BudgetCategory,
 } from "../data/budget";
 
@@ -170,12 +171,30 @@ function Ledger({ expenses, setExpenses }: Props) {
           placeholder="What was paid for"
           className="w-full rounded-md border border-ink-200 bg-white px-2.5 py-2 text-sm placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
         />
+        {/* Tap-once payer chips — no typing a name mid-dinner */}
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {TRAVELER_NAMES.map((n) => (
+            <button
+              key={n}
+              onClick={() => setPaidBy(paidBy === n ? "" : n)}
+              className={
+                "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors " +
+                (paidBy === n
+                  ? "border-accent-500 bg-accent-600 text-white"
+                  : "border-ink-200 bg-white text-ink-600 hover:border-ink-300")
+              }
+            >
+              {n}
+            </button>
+          ))}
+        </div>
         <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
           <input
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="$ amount"
             inputMode="decimal"
+            enterKeyHint="done"
             className="rounded-md border border-ink-200 bg-white px-2.5 py-2 text-sm tabular-nums placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
           />
           <input

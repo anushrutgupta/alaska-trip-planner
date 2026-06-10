@@ -25,9 +25,29 @@ expenses, notes) live in your browser via `localStorage`.
 
 Mobile-friendly (installable as a PWA) and includes a print/PDF view.
 
+## Install it on your phone (recommended)
+
+Open the deployed site in Safari (iOS) or Chrome (Android) **while online**,
+then *Share → Add to Home Screen*. That installs it as a standalone app with:
+
+- **Offline support** — the app shell, fonts, and a pre-warmed set of map
+  tiles covering the whole route are cached by a service worker. Large parts
+  of the drive have no cell signal; the app keeps working.
+- A bottom tab bar (Today · Days · Map · More) sized for thumbs.
+
+Do the install (and open the app once) on Wi-Fi **before** leaving — a first
+visit can't happen offline.
+
+### Simulate a trip day
+
+Append `?d=YYYY-MM-DD` (and optionally `&t=HH:MM`) to the URL to preview the
+during-trip Today view ahead of time, e.g. `/?d=2026-06-27&t=07:30` shows the
+bear-flight morning.
+
 ## Tech stack
 
-Vite · React 18 · TypeScript · Tailwind CSS · React-Leaflet. No server.
+Vite · React 18 · TypeScript · Tailwind CSS · React-Leaflet ·
+vite-plugin-pwa. No server.
 
 ## Run it locally
 

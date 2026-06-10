@@ -7,6 +7,8 @@ export interface Contact {
   url?: string;
   address?: string;
   notes?: string;
+  /** Trip dates this contact matters (pins it to "Today" during the trip). */
+  datesISO?: string[];
 }
 
 export interface ContactGroup {
@@ -20,6 +22,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
     contacts: [
       {
         id: "major-marine",
+        datesISO: ["2026-06-28", "2026-06-29"],
         name: "Major Marine Tours",
         role: "Kenai Fjords 8.5-hr cruise (Jun 29)",
         phone: "+19072747300",
@@ -28,6 +31,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "destination-alaska",
+        datesISO: ["2026-06-26", "2026-06-27"],
         name: "Destination Alaska (Northwind)",
         role: "Lake Clark bears (Jun 27) · conf 349623320",
         phone: "+19074354011",
@@ -37,6 +41,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "tat",
+        datesISO: ["2026-06-30", "2026-07-01"],
         name: "K2 Aviation",
         role: "Flightseeing + glacier (Jul 1, 8:30 AM) · conf 353115058",
         phone: "+18007642291",
@@ -46,6 +51,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "denali-bus",
+        datesISO: ["2026-07-02", "2026-07-03"],
         name: "Denali Park Reservations",
         role: "East Fork transit bus (Jul 3) · conf 3EY7SH",
         phone: "+18006221297",
@@ -59,6 +65,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
     contacts: [
       {
         id: "glacier-chalet",
+        datesISO: ["2026-06-25"],
         name: "Glacier Chalet (Airbnb · Amara)",
         role: "Arrival night, Jun 25",
         address: "2815 Glacier St, Anchorage",
@@ -66,6 +73,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "homer-lodging",
+        datesISO: ["2026-06-26", "2026-06-27"],
         name: "Homer VRBO (host Remy Hough)",
         role: "Jun 26–27 · conf HA-L2CYBY",
         url: "https://vrbo.com",
@@ -73,6 +81,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "marina-motel",
+        datesISO: ["2026-06-28", "2026-06-29"],
         name: "Marina Motel",
         role: "Seward, Jun 28–29",
         address: "1603 Seward Hwy, Seward",
@@ -80,6 +89,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "talkeetna-denali-view",
+        datesISO: ["2026-06-30", "2026-07-01"],
         name: "Talkeetna Denali View Lodge",
         role: "Jun 30 – Jul 1 · Trapper's Cabin · conf 99713",
         phone: "+19077334111",
@@ -89,12 +99,14 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "liberty-farms",
+        datesISO: ["2026-06-30", "2026-07-01"],
         name: "Liberty Farms",
         role: "Jun 30 – Jul 1 · Bunk Suite · conf 6307",
         notes: "2 guests (Rachita). Mat-Su area. Balance $262.90 due. VERIFY combined Talkeetna capacity for 6.",
       },
       {
         id: "denali-rv-park",
+        datesISO: ["2026-07-02", "2026-07-03"],
         name: "Denali RV Park & Motel",
         role: "Denali, Jul 2–3",
         address: "Mile 245.1 Parks Hwy, Healy",
@@ -102,6 +114,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "anc-final",
+        datesISO: ["2026-07-04"],
         name: "Alaskana Wildlife Townhome (Airbnb · Whitney)",
         role: "Anchorage final night, Jul 4 · conf HM2FXNBW4Z",
         phone: "+19073504819",
@@ -115,6 +128,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
     contacts: [
       {
         id: "rental",
+        datesISO: ["2026-06-26", "2026-07-05"],
         name: "Budget Rent A Car",
         role: "Jun 26 – Jul 5 · conf 46242799US1",
         phone: "+19072430150",
@@ -187,6 +201,7 @@ export const CONTACT_GROUPS: ContactGroup[] = [
       },
       {
         id: "alaska-air",
+        datesISO: ["2026-07-05"],
         name: "Alaska Airlines",
         role: "Outbound flight Jul 5",
         phone: "+18002527522",

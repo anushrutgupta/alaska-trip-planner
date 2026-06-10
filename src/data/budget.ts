@@ -18,6 +18,16 @@ export interface BudgetCategory {
 
 export const TRAVELERS = 6;
 
+// First names used in the ledger's paid-by chips (matches bookedBy/paidBy
+// usage in bookings + seed expenses). The 6th traveler types their name.
+export const TRAVELER_NAMES = [
+  "Anushrut",
+  "Deeksha",
+  "Avidipto",
+  "Rachita",
+  "Abhinav",
+];
+
 export const ACTIVITIES: BudgetCategory = {
   title: "Activities",
   lines: [
