@@ -10,6 +10,7 @@ import { TodayPanel } from "./components/TodayPanel";
 import { DaysPanel } from "./components/DaysPanel";
 import { ContactsPanel } from "./components/ContactsPanel";
 import { BottomNav } from "./components/BottomNav";
+import { StopSheet } from "./components/StopSheet";
 import { STOPS } from "./data/stops";
 import { BOOKINGS } from "./data/bookings";
 import { PACKING } from "./data/packing";
@@ -37,6 +38,7 @@ export default function App() {
     0,
   );
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [routeOpen, setRouteOpen] = useState(false);
 
   // Smart default tab: Today if trip is active or starting in <30 days, else Journey
   const initialTab: TabKey = useMemo(() => {
@@ -157,11 +159,11 @@ export default function App() {
       />
 
       <main className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        {/* Map: 40vh on the mobile Map tab, left ~55% on desktop. */}
+        {/* Map: full-bleed on the mobile Map tab, left ~55% on desktop. */}
         <section
           className={
-            "relative shrink-0 border-b border-ink-200 lg:block lg:h-full lg:basis-[55%] lg:border-b-0 lg:border-r " +
-            (mapVisibleMobile ? "block h-[40vh]" : "hidden")
+            "relative border-b border-ink-200 lg:block lg:h-full lg:basis-[55%] lg:border-b-0 lg:border-r " +
+            (mapVisibleMobile ? "block min-h-0 flex-1" : "hidden")
           }
         >
           <MapView
@@ -173,10 +175,58 @@ export default function App() {
             revision={tab}
           />
           <MapLegend />
+          {mapVisibleMobile && (
+            <>
+              <button
+                onClick={() => setRouteOpen(true)}
+                className="absolute right-2 top-2 z-[1000] rounded-full border border-ink-200 bg-white/95 px-3 py-1.5 text-xs font-medium text-ink-700 shadow-sm backdrop-blur lg:hidden"
+              >
+                Route ↕
+              </button>
+              <StopSheet
+                stop={current}
+                prev={prev}
+                next={next}
+                onPrev={() => setCurrentIndex(currentIndex - 1)}
+                onNext={() => setCurrentIndex(currentIndex + 1)}
+                totalStops={STOPS.length}
+              />
+            </>
+          )}
         </section>
 
-        {/* Panel: below on mobile, right ~45% on desktop */}
-        <section className="flex min-h-0 flex-1 flex-col lg:h-full lg:basis-[45%]">
+        {/* Mobile route list — RouteTimeline in a slide-up sheet */}
+        {routeOpen && (
+          <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal>
+            <button
+              aria-label="Close"
+              onClick={() => setRouteOpen(false)}
+              className="absolute inset-0 bg-ink-900/30"
+            />
+            <div className="absolute inset-x-0 bottom-0 flex max-h-[70vh] flex-col rounded-t-2xl bg-white pb-[env(safe-area-inset-bottom)] shadow-2xl">
+              <div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-ink-200" />
+              <RouteTimeline
+                stops={STOPS}
+                currentIndex={currentIndex}
+                hoveredIndex={hoveredIndex}
+                onSelect={(i) => {
+                  setCurrentIndex(i);
+                  setRouteOpen(false);
+                }}
+                onHover={setHoveredIndex}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Panel: full screen on mobile (hidden behind the map on the Map
+            tab), right ~45% on desktop */}
+        <section
+          className={
+            "min-h-0 flex-1 flex-col lg:flex lg:h-full lg:basis-[45%] " +
+            (tab === "journey" ? "hidden" : "flex")
+          }
+        >
           {tab === "today" && (
             <TodayPanel
               trip={trip}
