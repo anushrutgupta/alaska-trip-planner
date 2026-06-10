@@ -3,6 +3,7 @@ export interface PreTripItem {
   label: string;
   note?: string;
   category: "docs" | "tech" | "health" | "group" | "logistics";
+  deadline?: string; // ISO date — when this stops being fixable (chips in the UI)
 }
 
 export const PRETRIP: PreTripItem[] = [
@@ -17,12 +18,14 @@ export const PRETRIP: PreTripItem[] = [
     id: "confirmations",
     label: "Print + save digital confirmations",
     category: "docs",
+    deadline: "2026-06-22",
     note: "Cruise, both flights, bus, all lodging, rental car. Offline copies critical past Cantwell.",
   },
   {
     id: "insurance",
     label: "Travel insurance · trip cancel + medical",
     category: "docs",
+    deadline: "2026-06-15",
     note: "Optional but Lake Clark + glacier landing tilts the math.",
   },
 
@@ -31,12 +34,14 @@ export const PRETRIP: PreTripItem[] = [
     id: "offline-maps",
     label: "Download offline Google Maps",
     category: "tech",
+    deadline: "2026-06-23",
     note: "ANC→Homer, Seward Hwy, Parks Hwy Wasilla→Denali, Denali NP. Cell dies past Soldotna and Cantwell.",
   },
   {
     id: "downloads",
     label: "Download podcasts / playlists",
     category: "tech",
+    deadline: "2026-06-23",
     note: "Long drives. Spotify offline mode.",
   },
   {
@@ -57,6 +62,7 @@ export const PRETRIP: PreTripItem[] = [
     id: "bonine",
     label: "Bonine / Dramamine — 4 doses each",
     category: "health",
+    deadline: "2026-06-20",
     note: "Bear plane + cruise + (optional) flightseeing. Bonine = less drowsy.",
   },
   {
@@ -75,6 +81,7 @@ export const PRETRIP: PreTripItem[] = [
     id: "prescriptions",
     label: "Refill prescriptions · 14-day buffer",
     category: "health",
+    deadline: "2026-06-18",
   },
   {
     id: "first-aid",
@@ -88,12 +95,14 @@ export const PRETRIP: PreTripItem[] = [
     id: "body-weights",
     label: "Collect everyone's body weight",
     category: "group",
+    deadline: "2026-06-15",
     note: "Destination Alaska + K2 need them (done at booking — keep them current). Dressed-with-camera weight; being off by 15+ lbs can mean no fly, no refund.",
   },
   {
     id: "venmo",
     label: "Confirm everyone has Venmo / Splitwise",
     category: "group",
+    deadline: "2026-06-23",
     note: "Use the Budget tab's expense ledger or your own group.",
   },
   {
@@ -126,6 +135,7 @@ export const PRETRIP: PreTripItem[] = [
     id: "cash",
     label: "$200 cash split across group",
     category: "logistics",
+    deadline: "2026-06-24",
     note: "Some Talkeetna + Homer Spit vendors are cash-only.",
   },
 ];

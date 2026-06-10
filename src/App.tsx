@@ -192,6 +192,7 @@ export default function App() {
               onTogglePre={(id) =>
                 setPreReady({ ...preReady, [id]: !preReady[id] })
               }
+              today={trip.today}
             />
           )}
           {tab === "contacts" && <ContactsPanel />}

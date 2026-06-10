@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { PACKING } from "../data/packing";
 import { PRETRIP, type PreTripItem } from "../data/pretrip";
 
@@ -6,6 +7,7 @@ interface Props {
   onTogglePack: (id: string) => void;
   preReady: Record<string, boolean>;
   onTogglePre: (id: string) => void;
+  today: string; // ISO date, for deadline chips
 }
 
 const CATEGORY_LABELS: Record<PreTripItem["category"], string> = {
@@ -21,6 +23,7 @@ export function PackingPanel({
   onTogglePack,
   preReady,
   onTogglePre,
+  today,
 }: Props) {
   const grouped = PRETRIP.reduce<Record<string, PreTripItem[]>>((acc, item) => {
     (acc[item.category] = acc[item.category] || []).push(item);
@@ -52,6 +55,11 @@ export function PackingPanel({
                     onToggle={() => onTogglePre(p.id)}
                     label={p.label}
                     note={p.note}
+                    chip={
+                      p.deadline && !preReady[p.id] ? (
+                        <DeadlineChip deadline={p.deadline} today={today} />
+                      ) : undefined
+                    }
                   />
                 </li>
               ))}
@@ -89,16 +97,52 @@ export function PackingPanel({
   );
 }
 
+// "2026-06-15" → "Jun 15" (avoid Date() — UTC parsing shifts the day locally)
+function shortDate(iso: string): string {
+  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const [, m, d] = iso.split("-").map(Number);
+  return `${MONTHS[m - 1]} ${d}`;
+}
+
+function daysBetween(fromISO: string, toISO: string): number {
+  return Math.round(
+    (Date.parse(toISO + "T00:00:00") - Date.parse(fromISO + "T00:00:00")) /
+      86_400_000,
+  );
+}
+
+function DeadlineChip({ deadline, today }: { deadline: string; today: string }) {
+  const daysLeft = daysBetween(today, deadline);
+  const overdue = daysLeft < 0;
+  const soon = daysLeft >= 0 && daysLeft <= 3;
+  return (
+    <span
+      className={
+        "ml-2 inline-flex shrink-0 items-center rounded-full px-1.5 py-0.5 text-[10px] font-semibold tabular-nums " +
+        (overdue
+          ? "bg-rose-100 text-rose-700"
+          : soon
+            ? "bg-amber-100 text-amber-700"
+            : "bg-ink-100 text-ink-500")
+      }
+    >
+      {overdue ? `overdue · ${shortDate(deadline)}` : `by ${shortDate(deadline)}`}
+    </span>
+  );
+}
+
 function CheckRow({
   checked,
   onToggle,
   label,
   note,
+  chip,
 }: {
   checked: boolean;
   onToggle: () => void;
   label: string;
   note?: string;
+  chip?: ReactNode;
 }) {
   return (
     <button
@@ -135,6 +179,7 @@ function CheckRow({
           }
         >
           {label}
+          {chip}
         </div>
         {note && (
           <p className="mt-0.5 text-xs leading-relaxed text-ink-500">{note}</p>
