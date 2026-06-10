@@ -201,9 +201,34 @@ function DuringView({
   onGoToTab: (t: string) => void;
 }) {
   const day = trip.today_day!;
+
+  // "→ Seward · 170 mi · ~3.5 hrs" while the day's main drive is still
+  // ahead (or under way) — the question you ask most from the passenger seat.
+  const driveEvents = day.events.filter((e) => e.type === "drive");
+  const lastDrive = driveEvents[driveEvents.length - 1];
+  const driveStopIndex = [...driveEvents]
+    .reverse()
+    .find((e) => e.stopIndex !== undefined)?.stopIndex;
+  const showNextStop =
+    !!day.driveTo &&
+    !!lastDrive &&
+    (trip.hhmm <= lastDrive.time || trip.currentEvent?.type === "drive");
+
   return (
     <div className="scroll-soft h-full overflow-y-auto px-6 py-5">
       {trip.isOverridden && <OverrideBanner today={trip.today} />}
+
+      {showNextStop && (
+        <button
+          onClick={() => driveStopIndex !== undefined && onJumpToStop(driveStopIndex)}
+          className="sticky top-0 z-10 mb-4 flex w-full items-center justify-between gap-3 rounded-xl border border-accent-200 bg-accent-600 px-4 py-2.5 text-left text-white shadow-sm transition-colors hover:bg-accent-700"
+        >
+          <span className="text-sm font-semibold">→ {day.driveTo}</span>
+          <span className="text-xs tabular-nums text-white/85">
+            {day.driveMiles} mi · ~{day.driveTime}
+          </span>
+        </button>
+      )}
 
       <div className="flex items-baseline gap-2 text-xs text-ink-500">
         <span className="font-medium text-ink-700">{day.label}</span>

@@ -21,6 +21,8 @@ export interface TripDateInfo {
   currentEvent: DayEvent | null;
   /** Next upcoming event today, if active. */
   nextEvent: DayEvent | null;
+  /** Effective "HH:MM" clock (honors the ?t= override). */
+  hhmm: string;
   /** Was the date overridden from the URL? */
   isOverridden: boolean;
 }
@@ -121,6 +123,7 @@ export function useTripDate(): TripDateInfo {
     todayIndex,
     currentEvent,
     nextEvent,
+    hhmm,
     isOverridden,
   };
 }

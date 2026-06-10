@@ -40,6 +40,7 @@ export interface Day {
   weather: string; // static seasonal note
   driveMiles?: number;
   driveTime?: string;
+  driveTo?: string; // destination of the day's main drive ("Seward")
   events: DayEvent[];
 }
 
@@ -99,6 +100,7 @@ export const DAYS: Day[] = [
     weather: "Cooler near the coast. Bring layers — Turnagain Arm wind chill drops it ~10°F.",
     driveMiles: 225,
     driveTime: "5 hrs (with stops)",
+    driveTo: "Homer",
     events: [
       { id: "d1-wake", time: "08:30", type: "wake", title: "Wake at Glacier Chalet" },
       {
@@ -340,6 +342,7 @@ export const DAYS: Day[] = [
     weather: "Possible rain. Trail will be wet — waterproof boots non-negotiable.",
     driveMiles: 170,
     driveTime: "3.5 hrs",
+    driveTo: "Seward",
     events: [
       { id: "d3-wake", time: "08:30", type: "wake", title: "Wake · Pack out of Homer" },
       { id: "d3-breakfast", time: "09:00", type: "meal", title: "Breakfast + check out" },
@@ -497,6 +500,7 @@ export const DAYS: Day[] = [
       "Likely clear inland — Talkeetna sits in a drier rain shadow. 60s by afternoon.",
     driveMiles: 250,
     driveTime: "5 hrs",
+    driveTo: "Talkeetna",
     events: [
       { id: "d5-wake", time: "08:00", type: "wake", title: "Wake · Pack out of Seward" },
       { id: "d5-breakfast", time: "08:30", type: "meal", title: "Breakfast + check out" },
@@ -675,6 +679,7 @@ export const DAYS: Day[] = [
       "Interior. Drier. 65–75°F afternoons. Mosquitoes biting hard once you're past Cantwell — DEET out.",
     driveMiles: 150,
     driveTime: "2.5 hrs",
+    driveTo: "Denali",
     events: [
       { id: "d7-wake", time: "09:00", type: "wake", title: "Wake · Pack out of Talkeetna" },
       {
@@ -859,6 +864,7 @@ export const DAYS: Day[] = [
       "Hatcher Pass at 3,500 ft — could be 15°F cooler than ANC. Wildflowers peaking.",
     driveMiles: 280,
     driveTime: "6 hrs (with Hatcher Pass)",
+    driveTo: "Anchorage",
     events: [
       { id: "d9-wake", time: "08:00", type: "wake", title: "Wake · Pack" },
       {
