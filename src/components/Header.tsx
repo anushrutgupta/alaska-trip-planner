@@ -49,13 +49,14 @@ export function Header({
           href="?print"
           target="_blank"
           rel="noreferrer"
-          className="rounded-md border border-ink-200 px-2 py-0.5 text-[11px] font-medium text-ink-600 transition-colors hover:border-accent-400 hover:text-accent-700"
+          className="hidden rounded-md border border-ink-200 px-2 py-0.5 text-[11px] font-medium text-ink-600 transition-colors hover:border-accent-400 hover:text-accent-700 sm:inline-block"
           title="Open a printable PDF packet"
         >
           PDF
         </a>
       </div>
-      <nav className="scroll-soft -mx-1 flex flex-nowrap items-center gap-1 overflow-x-auto pb-1 lg:mx-0 lg:flex-wrap lg:overflow-visible lg:pb-0">
+      {/* Desktop tabs — mobile navigation lives in the bottom bar. */}
+      <nav className="scroll-soft -mx-1 hidden flex-nowrap items-center gap-1 overflow-x-auto pb-1 lg:mx-0 lg:flex lg:flex-wrap lg:overflow-visible lg:pb-0">
         {TABS.map((t) => {
           if (t.key === "today" && !showToday) return null;
           const isActive = t.key === active;

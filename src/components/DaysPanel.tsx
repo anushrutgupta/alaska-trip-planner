@@ -78,33 +78,13 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
 
       {/* Day header */}
       <div className="shrink-0 px-6 pt-4 pb-3">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="text-xs font-medium text-ink-500">
-              {day.label} · {day.date}
-            </div>
-            <h2 className="mt-0.5 text-xl font-semibold tracking-tight text-ink-900">
-              {day.theme}
-            </h2>
+        <div>
+          <div className="text-xs font-medium text-ink-500">
+            {day.label} · {day.date}
           </div>
-          <div className="flex items-center gap-1">
-            <button
-              onClick={() => activeIndex > 0 && setActiveIndex(activeIndex - 1)}
-              disabled={activeIndex === 0}
-              className="rounded-md border border-ink-200 bg-white px-2 py-1 text-xs text-ink-700 transition-colors hover:bg-ink-50 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              ←
-            </button>
-            <button
-              onClick={() =>
-                activeIndex < DAYS.length - 1 && setActiveIndex(activeIndex + 1)
-              }
-              disabled={activeIndex === DAYS.length - 1}
-              className="rounded-md border border-ink-200 bg-white px-2 py-1 text-xs text-ink-700 transition-colors hover:bg-ink-50 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              →
-            </button>
-          </div>
+          <h2 className="mt-0.5 text-xl font-semibold tracking-tight text-ink-900">
+            {day.theme}
+          </h2>
         </div>
 
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-500">

@@ -9,9 +9,11 @@ import { PackingPanel } from "./components/PackingPanel";
 import { TodayPanel } from "./components/TodayPanel";
 import { DaysPanel } from "./components/DaysPanel";
 import { ContactsPanel } from "./components/ContactsPanel";
+import { BottomNav } from "./components/BottomNav";
 import { STOPS } from "./data/stops";
 import { BOOKINGS } from "./data/bookings";
 import { PACKING } from "./data/packing";
+import { PRETRIP } from "./data/pretrip";
 import { SEED_EXPENSES } from "./data/seedExpenses";
 import { useStepNavigation } from "./hooks/useStepNavigation";
 import { useLocalStorage } from "./hooks/useLocalStorage";
@@ -100,6 +102,22 @@ export default function App() {
     () => PACKING.filter((p) => packed[p.id]).length,
     [packed],
   );
+  const preDone = useMemo(
+    () => PRETRIP.filter((p) => preReady[p.id]).length,
+    [preReady],
+  );
+  const outstanding = useMemo(
+    () => BOOKINGS.reduce((sum, b) => sum + (b.balanceDueAmount ?? 0), 0),
+    [],
+  );
+  // Amber dot on the More slot: something in there needs a look.
+  const moreAttention = useMemo(() => {
+    const unbooked = BOOKINGS.some((b) => b.priority <= 4 && !b.confirmed);
+    const overdue = PRETRIP.some(
+      (p) => p.deadline && p.deadline < trip.today && !preReady[p.id],
+    );
+    return unbooked || overdue || outstanding > 0;
+  }, [trip.today, preReady, outstanding]);
 
   const current = STOPS[currentIndex];
   const prev = currentIndex > 0 ? STOPS[currentIndex - 1] : null;
@@ -113,13 +131,17 @@ export default function App() {
 
   function jumpToStop(i: number) {
     setCurrentIndex(i);
-    // Stay on the current tab — user wanted to highlight on the map, not
-    // navigate away from where they were reading.
+    // Desktop keeps the split view, so highlighting in place is enough.
+    // On mobile the map lives behind the Map tab — navigate so "show on
+    // map" actually shows it.
+    if (!window.matchMedia("(min-width: 1024px)").matches) {
+      setTab("journey");
+    }
   }
 
-  // The map is only useful on Journey + Today. On mobile, hide it for the
-  // other tabs so the panel gets the full screen (desktop keeps the split).
-  const mapUseful = tab === "journey" || tab === "today";
+  // Mobile: the map only renders on the Map (journey) tab — every other
+  // panel gets the full screen. Desktop keeps the persistent split.
+  const mapVisibleMobile = tab === "journey";
 
   return (
     <div className="flex h-full flex-col bg-white">
@@ -135,11 +157,11 @@ export default function App() {
       />
 
       <main className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        {/* Map: stacked on top (40vh) on mobile, left ~55% on desktop. */}
+        {/* Map: 40vh on the mobile Map tab, left ~55% on desktop. */}
         <section
           className={
             "relative shrink-0 border-b border-ink-200 lg:block lg:h-full lg:basis-[55%] lg:border-b-0 lg:border-r " +
-            (mapUseful ? "block h-[40vh]" : "hidden")
+            (mapVisibleMobile ? "block h-[40vh]" : "hidden")
           }
         >
           <MapView
@@ -214,6 +236,20 @@ export default function App() {
           {tab === "contacts" && <ContactsPanel />}
         </section>
       </main>
+
+      <BottomNav
+        active={tab}
+        onTab={setTab}
+        todayBadge={todayBadge}
+        bookingsDone={bookingsDone}
+        bookingsTotal={BOOKINGS.length}
+        preDone={preDone}
+        preTotal={PRETRIP.length}
+        packedDone={packedDone}
+        packedTotal={PACKING.length}
+        outstanding={outstanding}
+        attention={moreAttention}
+      />
     </div>
   );
 }

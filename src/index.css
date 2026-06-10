@@ -20,9 +20,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #ffffff;
   color: #111827;
-  /* Respect iOS notch + home indicator when added to home screen */
+  /* Respect the iOS notch in standalone mode. The home-indicator inset at
+     the bottom is handled by the bottom nav's own padding, not here. */
   padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }

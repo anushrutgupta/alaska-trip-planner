@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-import { DAYS } from "../data/days";
 import { BOOKINGS } from "../data/bookings";
 import { PRETRIP } from "../data/pretrip";
 import { PACKING } from "../data/packing";
@@ -92,20 +90,20 @@ function BeforeView({
         </p>
       </div>
 
-      <div className="mt-5 grid grid-cols-3 gap-3">
-        <Stat
+      <div className="mt-5 grid grid-cols-3 divide-x divide-ink-200 overflow-hidden rounded-xl border border-ink-200 bg-white">
+        <ProgressSeg
           label="Booked"
           done={bookingsDone}
           total={BOOKINGS.length}
           onClick={() => onGoToTab("bookings")}
         />
-        <Stat
+        <ProgressSeg
           label="Pre-trip"
           done={preDone}
           total={PRETRIP.length}
           onClick={() => onGoToTab("pack")}
         />
-        <Stat
+        <ProgressSeg
           label="Packed"
           done={packedDone}
           total={PACKING.length}
@@ -151,35 +149,11 @@ function BeforeView({
         </div>
       )}
 
-      <div className="mt-6 rounded-xl border border-ink-200 bg-ink-50 p-4">
-        <div className="text-xs font-semibold uppercase tracking-wide text-ink-500">
-          Preview the trip
-        </div>
-        <p className="mt-1 text-xs leading-relaxed text-ink-600">
-          You can simulate any day by appending{" "}
-          <code className="rounded bg-white px-1 py-0.5 text-ink-800 ring-1 ring-ink-200">
-            ?d=2026-06-29
-          </code>{" "}
-          to the URL. Useful for testing the during-trip view ahead of time.
-        </p>
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {DAYS.slice(0, 6).map((d) => (
-            <a
-              key={d.dateISO}
-              href={`?d=${d.dateISO}`}
-              className="rounded-md border border-ink-200 bg-white px-2 py-1 text-xs text-ink-700 hover:border-accent-400 hover:bg-accent-50 hover:text-accent-700"
-            >
-              {d.date}
-            </a>
-          ))}
-          <span className="self-center text-xs text-ink-400">…</span>
-        </div>
-      </div>
     </div>
   );
 }
 
-function Stat({
+function ProgressSeg({
   label,
   done,
   total,
@@ -194,14 +168,16 @@ function Stat({
   return (
     <button
       onClick={onClick}
-      className="rounded-xl border border-ink-200 bg-white p-3 text-left transition-colors hover:border-accent-400 hover:bg-accent-50"
+      className="px-3 py-2 text-left transition-colors hover:bg-accent-50"
     >
-      <div className="text-xs uppercase tracking-wide text-ink-500">{label}</div>
-      <div className="mt-1 flex items-baseline gap-1.5">
-        <span className="text-2xl font-semibold tracking-tight text-ink-900 tabular-nums">
-          {done}
+      <div className="flex items-baseline justify-between gap-1">
+        <span className="text-[11px] uppercase tracking-wide text-ink-500">
+          {label}
         </span>
-        <span className="text-xs text-ink-500 tabular-nums">/ {total}</span>
+        <span className="text-xs font-semibold tabular-nums text-ink-900">
+          {done}
+          <span className="font-normal text-ink-400">/{total}</span>
+        </span>
       </div>
       <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-ink-100">
         <div
