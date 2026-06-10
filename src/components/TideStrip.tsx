@@ -1,9 +1,10 @@
-import { TIDES, type TideEvent } from "../data/tides";
+import { TIDES, morningLow, type TideEvent } from "../data/tides";
 
 /** Compact Homer tide row for a date. Renders nothing if no data for that day. */
 export function TideStrip({ dateISO }: { dateISO: string }) {
   const tides = TIDES[dateISO];
   if (!tides) return null;
+  const bearWindow = morningLow(dateISO);
 
   return (
     <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-md bg-sky-50 px-2.5 py-1.5 text-[11px] ring-1 ring-sky-100">
@@ -11,16 +12,16 @@ export function TideStrip({ dateISO }: { dateISO: string }) {
         Homer tides
       </span>
       {tides.map((t) => (
-        <Tide key={t.time} t={t} />
+        <Tide key={t.time} t={t} isBearWindow={t === bearWindow} />
       ))}
       <span className="text-sky-600">· bears fly near the morning low</span>
     </div>
   );
 }
 
-function Tide({ t }: { t: TideEvent }) {
+function Tide({ t, isBearWindow }: { t: TideEvent; isBearWindow: boolean }) {
   const isLow = t.type === "L";
-  const isMorningLow = isLow && t.time < "12:00";
+  const isMorningLow = isBearWindow;
   return (
     <span
       className={

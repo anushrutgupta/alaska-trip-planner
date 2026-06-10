@@ -108,10 +108,14 @@ export function EventRow({
               </div>
             )}
             {(event.phone ||
+              booking?.phone ||
               event.mapsQuery ||
               event.stopIndex !== undefined) && (
               <div className="mt-2 flex flex-wrap gap-1.5">
-                <ActionLinks phone={event.phone} mapsQuery={event.mapsQuery} />
+                <ActionLinks
+                  phone={event.phone ?? booking?.phone}
+                  mapsQuery={event.mapsQuery}
+                />
                 {event.stopIndex !== undefined && onJumpToStop && (
                   <button
                     onClick={() => onJumpToStop(event.stopIndex!)}

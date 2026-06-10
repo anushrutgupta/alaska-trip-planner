@@ -43,7 +43,7 @@ export const LOGISTICS: BudgetCategory = {
   ],
 };
 
-export const CATEGORIES = [ACTIVITIES, LOGISTICS];
+const CATEGORIES = [ACTIVITIES, LOGISTICS];
 
 // ---- derived totals (do not hardcode) ----
 export function categoryTotal(c: BudgetCategory): number {

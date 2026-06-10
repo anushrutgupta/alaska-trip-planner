@@ -65,6 +65,7 @@ export const DAYS: Day[] = [
       },
       {
         id: "d0-rental",
+        bookingId: "rental-car",
         time: "00:10",
         duration: "30 min",
         type: "checkin",
@@ -74,6 +75,7 @@ export const DAYS: Day[] = [
       },
       {
         id: "d0-hotel",
+        bookingId: "airport-hotel",
         time: "00:45",
         type: "checkin",
         title: "Check in at Glacier Chalet (Airbnb)",
@@ -173,6 +175,7 @@ export const DAYS: Day[] = [
       },
       {
         id: "d1-arrive-homer",
+        bookingId: "homer-lodging",
         time: "16:00",
         type: "checkin",
         title: "Arrive Homer · Check in",
@@ -375,6 +378,7 @@ export const DAYS: Day[] = [
       },
       {
         id: "d3-checkin-seward",
+        bookingId: "seward-lodging",
         time: "17:00",
         type: "checkin",
         title: "Check in at Marina Motel",
@@ -532,6 +536,7 @@ export const DAYS: Day[] = [
       },
       {
         id: "d5-arrive-tal",
+        bookingId: "talkeetna-lodging",
         time: "16:00",
         type: "checkin",
         title: "Arrive Talkeetna · Check in (2 properties)",
@@ -715,6 +720,7 @@ export const DAYS: Day[] = [
       },
       {
         id: "d7-arrive-denali",
+        bookingId: "denali-lodging",
         time: "13:30",
         type: "checkin",
         title: "Arrive Denali · Check in at Denali RV Park & Motel",
@@ -898,6 +904,7 @@ export const DAYS: Day[] = [
       },
       {
         id: "d9-arrive-anc",
+        bookingId: "anchorage-lodging",
         time: "17:00",
         type: "checkin",
         title: "Arrive Anchorage · Check in",
@@ -983,6 +990,7 @@ export const DAYS: Day[] = [
       },
       {
         id: "d10-return-car",
+        bookingId: "rental-car",
         time: "20:00",
         type: "checkin",
         title: "Refuel + return rental car at ANC",

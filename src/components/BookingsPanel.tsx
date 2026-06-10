@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BOOKINGS } from "../data/bookings";
-import { ActionLinks } from "./ActionLinks";
+import { ActionLinks, PhoneIcon, formatPhone } from "./ActionLinks";
 
 export interface BookingConfirmation {
   conf?: string;
@@ -117,6 +117,15 @@ export function BookingsPanel({ confirmations, setConfirmations }: Props) {
                       </p>
                     )}
                   </button>
+                  {b.phone && (
+                    <a
+                      href={`tel:${b.phone}`}
+                      title={`Call ${formatPhone(b.phone)}`}
+                      className="mt-0.5 shrink-0 rounded-md border border-ink-200 bg-white p-2 text-ink-600 transition-colors hover:border-accent-400 hover:text-accent-700"
+                    >
+                      <PhoneIcon />
+                    </a>
+                  )}
                   <Chevron expanded={isExpanded} />
                 </div>
 
