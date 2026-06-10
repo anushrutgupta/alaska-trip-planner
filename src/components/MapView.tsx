@@ -47,7 +47,10 @@ export function MapView(props: Props) {
       className="h-full w-full"
       attributionControl
     >
-      <TileLayer url={TILE_URL} attribution={TILE_ATTR} maxZoom={19} />
+      {/* crossOrigin is load-bearing: without it the service worker caches
+          tiles as opaque responses, which browsers quota-account at ~7 MB
+          each — a few hundred tiles would blow the origin's storage. */}
+      <TileLayer url={TILE_URL} attribution={TILE_ATTR} maxZoom={19} crossOrigin />
       <RouteLines {...props} />
       <Markers {...props} />
       <CurrentHalo
