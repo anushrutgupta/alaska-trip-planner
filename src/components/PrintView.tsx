@@ -2,7 +2,7 @@ import { DAYS } from "../data/days";
 import { BOOKINGS } from "../data/bookings";
 import { CONTACT_GROUPS } from "../data/contacts";
 import { PRETRIP } from "../data/pretrip";
-import { PACKING } from "../data/packing";
+import { PACKING, PACK_ORDER, PACK_CATEGORY_LABELS } from "../data/packing";
 import {
   ACTIVITIES,
   categoryTotal,
@@ -106,6 +106,19 @@ export function PrintView() {
                 ☀ {d.sunrise} · ☾ {d.sunset} · Overnight: {d.overnight}
                 {d.driveMiles ? ` · Drive ${d.driveMiles} mi (${d.driveTime})` : ""}
               </p>
+              {d.hiC != null && (
+                <p className="text-[10px] text-ink-600">
+                  Weather: {d.hiC}° / {d.loC}°C
+                  {d.precipPct != null ? ` · ${d.precipPct}% rain` : ""} ·{" "}
+                  {d.weather}
+                  {d.weatherForecast ? "" : " (seasonal est.)"}
+                </p>
+              )}
+              {d.tips && d.tips.length > 0 && (
+                <p className="text-[10px] text-ink-700">
+                  <span className="font-semibold">Prep:</span> {d.tips.join(" · ")}
+                </p>
+              )}
               {tides && (
                 <p className="text-[10px] text-sky-700">
                   Homer tides:{" "}
@@ -186,9 +199,23 @@ export function PrintView() {
             <div className="font-bold uppercase tracking-wide text-ink-500">
               Packing
             </div>
-            {PACKING.map((p) => (
-              <div key={p.id}>☐ {p.label}</div>
-            ))}
+            <div className="italic text-ink-500">
+              1 personal item + 1 carry-on each — no checked bag.
+            </div>
+            {PACK_ORDER.map((key) => {
+              const items = PACKING.filter((p) => p.category === key);
+              if (items.length === 0) return null;
+              return (
+                <div key={key} className="mt-1">
+                  <div className="font-semibold text-ink-700">
+                    {PACK_CATEGORY_LABELS[key]}
+                  </div>
+                  {items.map((p) => (
+                    <div key={p.id}>☐ {p.label}</div>
+                  ))}
+                </div>
+              );
+            })}
           </div>
           <div className="break-inside-avoid">
             <div className="font-bold uppercase tracking-wide text-ink-500">

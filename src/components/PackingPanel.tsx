@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { PACKING } from "../data/packing";
+import { PACKING, PACK_ORDER, PACK_CATEGORY_LABELS } from "../data/packing";
 import { PRETRIP, type PreTripItem } from "../data/pretrip";
 
 interface Props {
@@ -17,6 +17,7 @@ const CATEGORY_LABELS: Record<PreTripItem["category"], string> = {
   group: "Group",
   logistics: "Logistics",
 };
+
 
 export function PackingPanel({
   packed,
@@ -78,20 +79,36 @@ export function PackingPanel({
           <p className="mt-1 text-sm text-ink-500">
             Layered + waterproof. The Spit, the bus, and the boat all get wet.
           </p>
+          <div className="mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-900">
+            <span className="font-semibold">1 personal item + 1 carry-on each — no checked bag.</span>{" "}
+            Wear your boots + a layer on the plane, pick clothes you can
+            re-wear / sink-wash, and keep liquids ≤100 ml in a 1-quart bag.
+          </div>
         </div>
 
-        <ul className="space-y-1.5">
-          {PACKING.map((p) => (
-            <li key={p.id}>
-              <CheckRow
-                checked={!!packed[p.id]}
-                onToggle={() => onTogglePack(p.id)}
-                label={p.label}
-                note={p.note}
-              />
-            </li>
-          ))}
-        </ul>
+        {PACK_ORDER.map((key) => {
+          const items = PACKING.filter((p) => p.category === key);
+          if (items.length === 0) return null;
+          return (
+            <div key={key} className="mb-4">
+              <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-ink-500">
+                {PACK_CATEGORY_LABELS[key]}
+              </h3>
+              <ul className="space-y-1.5">
+                {items.map((p) => (
+                  <li key={p.id}>
+                    <CheckRow
+                      checked={!!packed[p.id]}
+                      onToggle={() => onTogglePack(p.id)}
+                      label={p.label}
+                      note={p.note}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       </section>
     </div>
   );

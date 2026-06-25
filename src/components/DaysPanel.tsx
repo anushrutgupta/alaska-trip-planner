@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { DAYS } from "../data/days";
 import { EventRow } from "./EventRow";
 import { TideStrip } from "./TideStrip";
+import { WeatherChip, DayTips } from "./DayBrief";
 import type { TripDateInfo } from "../hooks/useTripDate";
 
 // "Sun Jun 28" + "2026-06-28" → "Sun 6/28" (weekday + numeric date)
@@ -101,10 +102,9 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
             </>
           )}
         </div>
-        {day.weather && (
-          <p className="mt-1.5 text-xs leading-relaxed text-ink-500">{day.weather}</p>
-        )}
+        <WeatherChip day={day} />
         <TideStrip dateISO={day.dateISO} />
+        <DayTips tips={day.tips} />
       </div>
 
       {/* Schedule */}

@@ -41,6 +41,15 @@ export interface Day {
   driveMiles?: number;
   driveTime?: string;
   driveTo?: string; // destination of the day's main drive ("Seward")
+  // Weather — all temps in °C. `weatherForecast: true` = pulled from the NWS
+  // 7-day forecast (reliable); otherwise it's a late-June/early-July seasonal
+  // estimate, refresh nearer the day. (Forecast pulled 2026-06-24.)
+  hiC?: number;
+  loC?: number;
+  precipPct?: number; // chance of rain/showers
+  weatherForecast?: boolean;
+  /** What to wear / carry / prep for the day. */
+  tips?: string[];
   events: DayEvent[];
 }
 
@@ -54,7 +63,16 @@ export const DAYS: Day[] = [
     overnight: "Airport hotel (Anchorage)",
     sunrise: "04:22",
     sunset: "23:42",
-    weather: "Late June Anchorage: 55–65°F. Likely clear at 11 PM landing — still light outside.",
+    weather: "Mostly sunny; clear and still broad daylight at the 11:41 PM landing.",
+    hiC: 18,
+    loC: 11,
+    precipPct: 10,
+    weatherForecast: true,
+    tips: [
+      "Keep a fleece in your personal item — it's ~11°C when you land near midnight.",
+      "Rental counter: have a physical credit card + hard-copy license ready.",
+      "Sleep fast — Day 1 is a 225 mi (360 km) drive south.",
+    ],
     events: [
       {
         id: "d0-land",
@@ -97,7 +115,17 @@ export const DAYS: Day[] = [
     overnight: "Homer (1 of 2)",
     sunrise: "04:21",
     sunset: "23:43",
-    weather: "Cooler near the coast. Bring layers — Turnagain Arm wind chill drops it ~10°F.",
+    weather: "Sunny and warm inland (~20°C); first clouds build near the coast.",
+    hiC: 20,
+    loC: 11,
+    precipPct: 10,
+    weatherForecast: true,
+    tips: [
+      "Sunglasses + sunscreen — sunny ~20°C — but keep the rain shell within reach.",
+      "Turnagain Arm is windy and ~8–10°C cooler; keep a fleece in the car.",
+      "Buy bear spray + groceries today — bear spray can't fly or board the bush plane.",
+      "Top off fuel before Soldotna; cell signal drops past there.",
+    ],
     driveMiles: 225,
     driveTime: "5 hrs (with stops)",
     driveTo: "Homer",
@@ -243,8 +271,17 @@ export const DAYS: Day[] = [
     overnight: "Homer (2 of 2)",
     sunrise: "04:22",
     sunset: "23:43",
-    weather:
-      "Coastal — could be foggy AM. Bay temp ~45°F, beach 50–60°F. Wind shell essential.",
+    weather: "Sunny but breezy — SW wind gusting ~30 km/h. Good flying weather for the bears.",
+    hiC: 17,
+    loC: 8,
+    precipPct: 20,
+    weatherForecast: true,
+    tips: [
+      "Dress in layers you can shed — the bush plane + tidal flats are cold and windy.",
+      "Waterproof boots; the flats are wet and muddy.",
+      "Motion-sickness pill ~1 hr before the flight; bring camera + binoculars.",
+      "Confirm everyone's body weight at check-in — being off can mean no-fly.",
+    ],
     events: [
       { id: "d2-wake", time: "06:30", type: "wake", title: "Wake · Bonine AM dose" },
       {
@@ -339,7 +376,16 @@ export const DAYS: Day[] = [
     overnight: "Seward (1 of 2)",
     sunrise: "04:23",
     sunset: "23:42",
-    weather: "Possible rain. Trail will be wet — waterproof boots non-negotiable.",
+    weather: "Sunny leaving Homer; cooler and cloudier (~14°C) on the Seward side.",
+    hiC: 14,
+    loC: 8,
+    precipPct: 20,
+    weatherForecast: true,
+    tips: [
+      "Rain shell + fleece — the Kenai coast runs cool and grey.",
+      "Waterproof boots for the Exit Glacier trail (it'll be wet).",
+      "Pack a dry bag / waterproof phone pouch for tomorrow's cruise.",
+    ],
     driveMiles: 170,
     driveTime: "3.5 hrs",
     driveTo: "Seward",
@@ -429,7 +475,17 @@ export const DAYS: Day[] = [
     sunrise: "04:31",
     sunset: "23:35",
     weather:
-      "On the outer coast, 4–6 ft swells possible. 45–50°F with wind chill on deck. Sit mid-ship if seasickness-prone.",
+      "Mostly cloudy, ~13°C on land — but on the water it feels ~5°C colder with wind and spray.",
+    hiC: 13,
+    loC: 9,
+    precipPct: 40,
+    weatherForecast: false,
+    tips: [
+      "Wear ALL your layers + rain shell on deck — add a warm hat + gloves.",
+      "Motion-sickness pill before boarding (8.5-hr cruise); sit mid-ship.",
+      "Charge your phone fully + bring a power bank — ~8 hrs with no outlet.",
+      "Binoculars + camera: whales, puffins, tidewater glaciers.",
+    ],
     events: [
       { id: "d4-wake", time: "06:30", type: "wake", title: "Wake · Bonine AM dose" },
       {
@@ -497,7 +553,16 @@ export const DAYS: Day[] = [
     sunrise: "04:32",
     sunset: "23:34",
     weather:
-      "Likely clear inland — Talkeetna sits in a drier rain shadow. 60s by afternoon.",
+      "Warmer and drier inland (~19°C) as you reach Talkeetna's rain shadow.",
+    hiC: 19,
+    loC: 10,
+    precipPct: 30,
+    weatherForecast: false,
+    tips: [
+      "Back to a t-shirt + light layer for the drive.",
+      "Download offline maps + playlists — it's a long transit day.",
+      "Charge power banks tonight for tomorrow's flightseeing.",
+    ],
     driveMiles: 250,
     driveTime: "5 hrs",
     driveTo: "Talkeetna",
@@ -596,7 +661,17 @@ export const DAYS: Day[] = [
     sunrise: "04:33",
     sunset: "23:33",
     weather:
-      "Mornings clearest before afternoon convection — your 8:30 AM slot is the smart pick. K2 calls if weather forces a change.",
+      "Clearest in the morning (your 8:30 slot); afternoon showers possible, ~20°C.",
+    hiC: 20,
+    loC: 10,
+    precipPct: 40,
+    weatherForecast: false,
+    tips: [
+      "Glacier landing is cold + blinding-bright — fleece + shell + warm hat + sunglasses, even if town is warm.",
+      "Sunscreen for the snow glare; camera + spare battery.",
+      "Pack light on the plane — weight is limited and checked at the office.",
+      "Flight is weather-dependent — keep the morning flexible; K2 calls if it shifts.",
+    ],
     events: [
       { id: "d6-wake", time: "06:45", type: "wake", title: "Wake" },
       { id: "d6-breakfast", time: "07:10", type: "meal", title: "Breakfast (Roadhouse rolls)" },
@@ -676,7 +751,17 @@ export const DAYS: Day[] = [
     sunrise: "04:36",
     sunset: "23:31",
     weather:
-      "Interior. Drier. 65–75°F afternoons. Mosquitoes biting hard once you're past Cantwell — DEET out.",
+      "Interior and drier (~19°C); mosquitoes pick up hard past Cantwell.",
+    hiC: 19,
+    loC: 9,
+    precipPct: 40,
+    weatherForecast: false,
+    tips: [
+      "Rain shell accessible — interior showers come and go.",
+      "DEET + head net once you're past Cantwell.",
+      "Stock snacks + water for Denali; options up there are limited.",
+      "Early night — tomorrow's transit-bus pickup is ~9:30 AM.",
+    ],
     driveMiles: 150,
     driveTime: "2.5 hrs",
     driveTo: "Denali",
@@ -775,7 +860,17 @@ export const DAYS: Day[] = [
     sunrise: "04:38",
     sunset: "23:29",
     weather:
-      "Cool AM (45°F), warming to 65°F by midday. Wind on ridgelines. Always pack rain shell.",
+      "Showers likely and cooler (~17°C) — a wet pattern was setting in around Denali.",
+    hiC: 17,
+    loC: 8,
+    precipPct: 70,
+    weatherForecast: false,
+    tips: [
+      "Full rain gear — the bus stops are exposed and unheated.",
+      "Layers + warm hat; bring lunch, water, binoculars (5–6 hrs out).",
+      "DEET + head net; bear spray for any off-bus walk.",
+      "Camera with zoom — wildlife is at a distance.",
+    ],
     events: [
       {
         id: "d8-wake",
@@ -861,7 +956,16 @@ export const DAYS: Day[] = [
     sunrise: "04:41",
     sunset: "23:27",
     weather:
-      "Hatcher Pass at 3,500 ft — could be 15°F cooler than ANC. Wildflowers peaking.",
+      "Mix of sun and showers (~18°C); Hatcher Pass is colder and windier up high.",
+    hiC: 18,
+    loC: 9,
+    precipPct: 40,
+    weatherForecast: false,
+    tips: [
+      "Keep layers handy — the pass can run ~8–10°C cooler than town.",
+      "Long drive (~6 hrs) — fuel + snacks before Hatcher Pass.",
+      "Repack + last laundry tonight for the red-eye home.",
+    ],
     driveMiles: 280,
     driveTime: "6 hrs (with Hatcher Pass)",
     driveTo: "Anchorage",
@@ -948,7 +1052,16 @@ export const DAYS: Day[] = [
     overnight: "Red-eye home",
     sunrise: "04:43",
     sunset: "23:25",
-    weather: "ANC mild. 65°F.",
+    weather: "Mild Anchorage day, ~19°C, partly cloudy before the red-eye out.",
+    hiC: 19,
+    loC: 11,
+    precipPct: 30,
+    weatherForecast: false,
+    tips: [
+      "Easy day — brunch, museum, Coastal Trail.",
+      "Refuel the rental before drop-off to avoid the refill fee.",
+      "Carry-on essentials + chargers in your personal item for the overnight flight; change of clothes in the carry-on.",
+    ],
     events: [
       { id: "d10-wake", time: "09:00", type: "wake", title: "Wake — last morning" },
       {

@@ -3,6 +3,7 @@ import { PRETRIP } from "../data/pretrip";
 import { PACKING } from "../data/packing";
 import { EventRow } from "./EventRow";
 import { TideStrip } from "./TideStrip";
+import { WeatherChip, DayTips } from "./DayBrief";
 import { ActionLinks } from "./ActionLinks";
 import type { TripDateInfo } from "../hooks/useTripDate";
 
@@ -241,9 +242,11 @@ function DuringView({
         {day.theme}
       </h2>
       <p className="mt-1.5 text-xs leading-relaxed text-ink-500">
-        ☀ {day.sunrise}  ·  ☾ {day.sunset}  ·  {day.weather}
+        ☀ {day.sunrise}  ·  ☾ {day.sunset}
       </p>
+      <WeatherChip day={day} />
       <TideStrip dateISO={day.dateISO} />
+      <DayTips tips={day.tips} />
 
       {trip.currentEvent && (
         <div className="mt-5">
