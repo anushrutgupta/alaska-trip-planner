@@ -12,6 +12,7 @@ import {
 } from "../data/budget";
 import { TIDES } from "../data/tides";
 import { formatPhone } from "./ActionLinks";
+import { formatTime12h } from "../lib/time";
 
 function fmt(n: number) {
   return "$" + Math.round(n).toLocaleString("en-US");
@@ -103,7 +104,7 @@ export function PrintView() {
                 {d.label} · {d.date} — {d.theme}
               </h3>
               <p className="text-[10px] text-ink-500">
-                ☀ {d.sunrise} · ☾ {d.sunset} · Overnight: {d.overnight}
+                ☀ {formatTime12h(d.sunrise)} · ☾ {formatTime12h(d.sunset)} · Overnight: {d.overnight}
                 {d.driveMiles ? ` · Drive ${d.driveMiles} mi (${d.driveTime})` : ""}
               </p>
               {d.hiC != null && (
@@ -117,6 +118,11 @@ export function PrintView() {
               {d.tips && d.tips.length > 0 && (
                 <p className="text-[10px] text-ink-700">
                   <span className="font-semibold">Prep:</span> {d.tips.join(" · ")}
+                </p>
+              )}
+              {d.verify && (
+                <p className="text-[10px] font-medium text-amber-800">
+                  ⚠ Verify: {d.verify}
                 </p>
               )}
               {tides && (
@@ -137,8 +143,8 @@ export function PrintView() {
                     : undefined;
                   return (
                     <li key={e.id} className="flex gap-2 py-0.5 text-[11px]">
-                      <span className="w-12 shrink-0 font-mono tabular-nums text-ink-500">
-                        {e.time}
+                      <span className="w-16 shrink-0 font-mono tabular-nums text-ink-500">
+                        {formatTime12h(e.time)}
                       </span>
                       <span>
                         <span className="font-medium">{e.title}</span>

@@ -1,6 +1,7 @@
 import type { DayEvent, EventType } from "../data/days";
 import { BOOKINGS } from "../data/bookings";
 import { ActionLinks } from "./ActionLinks";
+import { formatTime12h } from "../lib/time";
 
 interface Props {
   event: DayEvent;
@@ -51,7 +52,7 @@ export function EventRow({
     >
       <div className="flex w-14 shrink-0 flex-col items-end pt-0.5">
         <div className="font-mono text-xs font-medium tabular-nums text-ink-700">
-          {event.time}
+          {formatTime12h(event.time)}
         </div>
         {event.duration && (
           <div className="text-[10px] tabular-nums text-ink-400">{event.duration}</div>

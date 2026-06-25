@@ -22,7 +22,7 @@ export const BOOKINGS: Booking[] = [
   {
     id: "kenai-fjords-cruise",
     priority: 1,
-    name: "Kenai Fjords 8.5-hr cruise",
+    name: "Kenai Fjords — Northwestern Fjord 8.5-hr cruise",
     date: "Mon Jun 29 · check-in 7:30 AM",
     contact: "Major Marine Tours · Harbor 360 dock",
     phone: "+19072747300",
@@ -85,7 +85,7 @@ export const BOOKINGS: Booking[] = [
     url: "https://reservedenali.com",
     price: "$33.50/pp",
     notes:
-      "5 adults. Runs ~11:30 AM–4:15 PM. Arrive depot 20 min early. $15 NPS entry collected at check-in.",
+      "5 adults. Depart 9:30 AM (the pickup time IS the departure), back ~4:15 PM. Be at the depot by 9:10 to collect tickets + pay the $15 NPS entry. (Receipt also lists an 11:30 AM–4:15 PM window for the same booking — confirm if unsure.)",
     planB: "<5% cancel rate, runs rain or shine.",
     confirmed: true,
     confRef: "3EY7SH · itin 30002M4VB",
@@ -151,8 +151,7 @@ export const BOOKINGS: Booking[] = [
     phone: "+19077334111",
     price: "$556.50 + $501.90",
     notes:
-      "VERIFY CAPACITY: Trapper's Cabin (#99713, 2 ad) + Liberty Farms bunk suite (#6307, 2 guests) = 4 beds for 6 people. Day-of contact at Denali View: Dawn 907-351-5830.",
-    planB: "Confirm bunk suite sleeps 4+, or book the 2-bed shortfall.",
+      "Trapper's Cabin (#99713) + Liberty Farms bunk suite (#6307) — confirmed sleeps all 6. Day-of contact at Denali View: Dawn 907-351-5830.",
     confirmed: true,
     confRef: "99713 (Deeksha) · 6307 (Rachita)",
     bookedBy: "Deeksha + Rachita",

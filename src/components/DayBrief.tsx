@@ -39,6 +39,17 @@ export function WeatherChip({ day }: { day: Day }) {
   );
 }
 
+/** Day-of "confirm this first" banner (tide texts, weather-gated flights, road status). */
+export function VerifyBanner({ text }: { text?: string }) {
+  if (!text) return null;
+  return (
+    <div className="mt-2 flex gap-2 rounded-md border border-amber-300 bg-amber-50 px-2.5 py-2 text-xs leading-relaxed text-amber-900">
+      <span aria-hidden className="shrink-0 font-semibold">⚠ Verify</span>
+      <span>{text}</span>
+    </div>
+  );
+}
+
 /** What to wear / carry / prep for the day. */
 export function DayTips({ tips }: { tips?: string[] }) {
   if (!tips || tips.length === 0) return null;

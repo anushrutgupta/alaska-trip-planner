@@ -19,12 +19,15 @@ export interface BudgetCategory {
 export const TRAVELERS = 6;
 
 // First names used in the ledger's paid-by chips (matches bookedBy/paidBy
-// usage in bookings + seed expenses). The 6th traveler types their name.
+// usage in bookings + seed expenses). 2 couples + 2 friends:
+// Anushrut+Deeksha, Rachita+Harry, plus Avidipto (Avi) and Abhinav.
+// Keep "Avidipto" spelled out to match the seeded receipt expenses.
 export const TRAVELER_NAMES = [
   "Anushrut",
   "Deeksha",
-  "Avidipto",
   "Rachita",
+  "Harry",
+  "Avidipto",
   "Abhinav",
 ];
 
@@ -35,10 +38,10 @@ export const ACTIVITIES: BudgetCategory = {
     { label: "Flightseeing + glacier — K2", amount: 580 },
     { label: "Kenai Fjords cruise — Major Marine", amount: 340 },
     { label: "Denali transit bus", amount: 34 },
-    { label: "AWCC", amount: 15 },
-    { label: "Anchorage Museum", amount: 20 },
-    { label: "Heritage Center", amount: 25 },
-    { label: "Pratt Museum", amount: 12 },
+    { label: "AWCC", amount: 30 },
+    { label: "Anchorage Museum", amount: 25 },
+    { label: "Heritage Center", amount: 30 },
+    { label: "Pratt Museum", amount: 15 },
   ],
 };
 

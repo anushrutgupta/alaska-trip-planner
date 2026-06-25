@@ -3,8 +3,9 @@ import { PRETRIP } from "../data/pretrip";
 import { PACKING } from "../data/packing";
 import { EventRow } from "./EventRow";
 import { TideStrip } from "./TideStrip";
-import { WeatherChip, DayTips } from "./DayBrief";
+import { WeatherChip, DayTips, VerifyBanner } from "./DayBrief";
 import { ActionLinks } from "./ActionLinks";
+import { formatTime12h } from "../lib/time";
 import type { TripDateInfo } from "../hooks/useTripDate";
 
 interface Props {
@@ -242,9 +243,10 @@ function DuringView({
         {day.theme}
       </h2>
       <p className="mt-1.5 text-xs leading-relaxed text-ink-500">
-        ☀ {day.sunrise}  ·  ☾ {day.sunset}
+        ☀ {formatTime12h(day.sunrise)}  ·  ☾ {formatTime12h(day.sunset)}
       </p>
       <WeatherChip day={day} />
+      <VerifyBanner text={day.verify} />
       <TideStrip dateISO={day.dateISO} />
       <DayTips tips={day.tips} />
 

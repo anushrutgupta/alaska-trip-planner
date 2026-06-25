@@ -50,6 +50,8 @@ export interface Day {
   weatherForecast?: boolean;
   /** What to wear / carry / prep for the day. */
   tips?: string[];
+  /** Something to confirm/check the morning of (renders as an amber banner). */
+  verify?: string;
   events: DayEvent[];
 }
 
@@ -61,8 +63,8 @@ export const DAYS: Day[] = [
     dateISO: "2026-06-25",
     theme: "Arrival",
     overnight: "Airport hotel (Anchorage)",
-    sunrise: "04:22",
-    sunset: "23:42",
+    sunrise: "04:18",
+    sunset: "23:46",
     weather: "Mostly sunny; clear and still broad daylight at the 11:41 PM landing.",
     hiC: 18,
     loC: 11,
@@ -113,12 +115,12 @@ export const DAYS: Day[] = [
     dateISO: "2026-06-26",
     theme: "ANC → Homer (225 mi, scenic drive day)",
     overnight: "Homer (1 of 2)",
-    sunrise: "04:21",
-    sunset: "23:43",
-    weather: "Sunny and warm inland (~20°C); first clouds build near the coast.",
-    hiC: 20,
-    loC: 11,
-    precipPct: 10,
+    sunrise: "04:45",
+    sunset: "23:33",
+    weather: "Sunny and calm — clear and warm the whole drive south.",
+    hiC: 18,
+    loC: 8,
+    precipPct: 5,
     weatherForecast: true,
     tips: [
       "Sunglasses + sunscreen — sunny ~20°C — but keep the rain shell within reach.",
@@ -156,6 +158,16 @@ export const DAYS: Day[] = [
         detail: "Top off fuel before leaving city. Cell service drops past Girdwood.",
       },
       {
+        id: "d1-potter",
+        time: "10:45",
+        duration: "20 min",
+        type: "flex",
+        title: "Potter Marsh boardwalk (optional)",
+        detail:
+          "Free boardwalk ~10 mi south of ANC, right on the route. Birds, often moose, sometimes spawning salmon. Easy leg-stretch.",
+        mapsQuery: "Potter Marsh Boardwalk",
+      },
+      {
         id: "d1-beluga",
         time: "11:15",
         duration: "10 min",
@@ -181,10 +193,20 @@ export const DAYS: Day[] = [
         type: "activity",
         title: "AWCC at Portage",
         detail:
-          "Brown + black bears, moose, muskox, bison, porcupine. Walk the loop. $15/pp at the gate.",
+          "Brown + black bears, moose, muskox, bison, porcupine. Walk the loop. $30/pp at the gate (2026).",
         stopIndex: 3,
         mapsQuery: "Alaska Wildlife Conservation Center",
         phone: "+19077832025",
+      },
+      {
+        id: "d1-byron",
+        time: "12:45",
+        duration: "45 min",
+        type: "flex",
+        title: "Byron Glacier + Begich-Boggs (optional)",
+        detail:
+          "Same Portage turnoff as AWCC. Flat ~0.8-mi walk toward the glacier, plus the Begich-Boggs visitor center over Portage Lake (icebergs). Stack with AWCC if you're not rushing to Homer.",
+        mapsQuery: "Byron Glacier Trailhead",
       },
       {
         id: "d1-lunch",
@@ -269,13 +291,15 @@ export const DAYS: Day[] = [
     dateISO: "2026-06-27",
     theme: "★ LAKE CLARK BEAR VIEWING",
     overnight: "Homer (2 of 2)",
-    sunrise: "04:22",
-    sunset: "23:43",
-    weather: "Sunny but breezy — SW wind gusting ~30 km/h. Good flying weather for the bears.",
-    hiC: 17,
-    loC: 8,
-    precipPct: 20,
+    sunrise: "04:46",
+    sunset: "23:33",
+    weather: "Sunny and clear — favorable flying weather for the bears.",
+    hiC: 20,
+    loC: 11,
+    precipPct: 5,
     weatherForecast: true,
+    verify:
+      "Watch for Destination Alaska's check-in text/WhatsApp (sent the evening before) — the bear-flight time shifts with the tide.",
     tips: [
       "Dress in layers you can shed — the bush plane + tidal flats are cold and windy.",
       "Waterproof boots; the flats are wet and muddy.",
@@ -353,8 +377,8 @@ export const DAYS: Day[] = [
         type: "flex",
         title: "Homer afternoon (pick 1–2)",
         detail:
-          "Pratt Museum ($12, 1 hr — natural history + tide pool touch tank). Bishops Beach (easy stroll below bluffs). Homer Brewing Company. Or genuinely rest.",
-        mapsQuery: "Pratt Museum Homer",
+          "RECOMMENDED if the bear flight gets you back by ~1 PM: a Kachemak Bay water taxi to Halibut Cove (boardwalk hamlet + The Saltry — reserve ahead) or Grewingk Glacier (easy ~3-mi hike to an iceberg lake), ~4–5 hrs round trip. Lower-key: Pratt Museum ($15, 1 hr — natural history + tide-pool touch tank), Bishop's Beach stroll, or Homer Brewing. Or genuinely rest.",
+        mapsQuery: "Homer Harbor water taxi",
       },
       {
         id: "d2-dinner",
@@ -374,12 +398,12 @@ export const DAYS: Day[] = [
     dateISO: "2026-06-28",
     theme: "Homer → Seward + Exit Glacier",
     overnight: "Seward (1 of 2)",
-    sunrise: "04:23",
-    sunset: "23:42",
-    weather: "Sunny leaving Homer; cooler and cloudier (~14°C) on the Seward side.",
+    sunrise: "04:33",
+    sunset: "23:29",
+    weather: "Sunny leaving Homer; cooler, mostly cloudy and dry (~14°C) on the Seward side.",
     hiC: 14,
-    loC: 8,
-    precipPct: 20,
+    loC: 7,
+    precipPct: 10,
     weatherForecast: true,
     tips: [
       "Rain shell + fleece — the Kenai coast runs cool and grey.",
@@ -437,6 +461,16 @@ export const DAYS: Day[] = [
         mapsQuery: "Marina Motel Seward",
       },
       {
+        id: "d3-sealife",
+        time: "17:30",
+        duration: "1.5 hrs",
+        type: "flex",
+        title: "Alaska SeaLife Center (optional)",
+        detail:
+          "Right on the harbor — Alaska's only public aquarium + marine-mammal rehab (puffins, sea lions). Confirm it's still open (summer hours ~to 6:30 PM); otherwise just walk the harbor.",
+        mapsQuery: "Alaska SeaLife Center Seward",
+      },
+      {
         id: "d3-harbor",
         time: "17:45",
         duration: "1 hr",
@@ -461,7 +495,7 @@ export const DAYS: Day[] = [
         detail:
           "Take Bonine NOW for tomorrow's cruise. Pack: rain shell, fleece, warm hat, gloves, sunglasses, sunscreen, water, snacks, full camera batteries.",
       },
-      { id: "d3-sleep", time: "21:30", type: "sleep", title: "Sleep · Alarms 06:30" },
+      { id: "d3-sleep", time: "21:30", type: "sleep", title: "Sleep · Alarms 6:30 AM" },
     ],
   },
 
@@ -472,14 +506,14 @@ export const DAYS: Day[] = [
     dateISO: "2026-06-29",
     theme: "★ KENAI FJORDS 8.5-HR CRUISE",
     overnight: "Seward (2 of 2)",
-    sunrise: "04:31",
-    sunset: "23:35",
+    sunrise: "04:34",
+    sunset: "23:29",
     weather:
-      "Mostly cloudy, ~13°C on land — but on the water it feels ~5°C colder with wind and spray.",
+      "Partly sunny, ~13°C on land (a few showers possible after 4 PM) — but on the water it feels ~5°C colder with wind and spray.",
     hiC: 13,
-    loC: 9,
-    precipPct: 40,
-    weatherForecast: false,
+    loC: 7,
+    precipPct: 20,
+    weatherForecast: true,
     tips: [
       "Wear ALL your layers + rain shell on deck — add a warm hat + gloves.",
       "Motion-sickness pill before boarding (8.5-hr cruise); sit mid-ship.",
@@ -548,16 +582,16 @@ export const DAYS: Day[] = [
     label: "Day 5",
     date: "Tue Jun 30",
     dateISO: "2026-06-30",
-    theme: "Seward → Talkeetna (drop-off in ANC)",
+    theme: "Seward → Talkeetna (via Anchorage)",
     overnight: "Talkeetna (1 of 2)",
-    sunrise: "04:32",
-    sunset: "23:34",
+    sunrise: "04:07",
+    sunset: "00:01",
     weather:
-      "Warmer and drier inland (~19°C) as you reach Talkeetna's rain shadow.",
-    hiC: 19,
-    loC: 10,
+      "Mostly cloudy inland with a chance of showers, ~18°C.",
+    hiC: 18,
+    loC: 7,
     precipPct: 30,
-    weatherForecast: false,
+    weatherForecast: true,
     tips: [
       "Back to a t-shirt + light layer for the drive.",
       "Download offline maps + playlists — it's a long transit day.",
@@ -610,7 +644,7 @@ export const DAYS: Day[] = [
         type: "checkin",
         title: "Arrive Talkeetna · Check in (2 properties)",
         detail:
-          "Split across Talkeetna Denali View Lodge (Trapper's Cabin, #99713 — off Spur Rd Mile 3, day-of Dawn 907-351-5830) and Liberty Farms (Bunk Suite, #6307). Confirm who's where + that all 6 have a bed.",
+          "Split across Talkeetna Denali View Lodge (Trapper's Cabin, #99713 — off Spur Rd Mile 3, day-of Dawn 907-351-5830) and Liberty Farms (Bunk Suite, #6307). Confirmed sleeps all 6 — just sort out who's where.",
         stopIndex: 13,
         phone: "+19077334111",
       },
@@ -647,7 +681,7 @@ export const DAYS: Day[] = [
         title: "River overlook + Nagley's General Store",
         detail: "Confluence of three rivers. Sunset still 3 hrs away.",
       },
-      { id: "d5-sleep", time: "22:00", type: "sleep", title: "Sleep · Alarms 07:00" },
+      { id: "d5-sleep", time: "22:00", type: "sleep", title: "Sleep · Alarms 7:00 AM" },
     ],
   },
 
@@ -658,14 +692,16 @@ export const DAYS: Day[] = [
     dateISO: "2026-07-01",
     theme: "★ FLIGHTSEEING + GLACIER LANDING",
     overnight: "Talkeetna (2 of 2)",
-    sunrise: "04:33",
-    sunset: "23:33",
+    sunrise: "04:09",
+    sunset: "23:59",
     weather:
-      "Clearest in the morning (your 8:30 slot); afternoon showers possible, ~20°C.",
+      "Mostly cloudy, ~20°C; clearest in the morning (your 8:30 slot). Recheck before the flight.",
     hiC: 20,
     loC: 10,
-    precipPct: 40,
-    weatherForecast: false,
+    precipPct: 20,
+    weatherForecast: true,
+    verify:
+      "Glacier landing is weather-gated — confirm the flight is a go with K2 (1-800-764-2291) first thing. They reschedule/refund for weather.",
     tips: [
       "Glacier landing is cold + blinding-bright — fleece + shell + warm hat + sunglasses, even if town is warm.",
       "Sunscreen for the snow glare; camera + spare battery.",
@@ -721,7 +757,7 @@ export const DAYS: Day[] = [
         type: "flex",
         title: "Talkeetna afternoon (pick 1–2)",
         detail:
-          "Historical Society Museum ($5, 1 hr — mountaineering history). River confluence walk. Denali State Park Mile 135 viewpoint (30 min south, worth it on a clear day). Denali Brewing taproom.",
+          "Walter Harper Talkeetna Ranger Station (free NPS climbing exhibits + relief map, ~30 min). Historical Society Museum ($10, 1 hr — mountaineering history). River confluence walk + the climbers' memorial cemetery. Denali State Park Mile 135 viewpoint (30 min south, worth it on a clear day). Denali Brewing taproom.",
       },
       {
         id: "d6-dinner",
@@ -748,13 +784,13 @@ export const DAYS: Day[] = [
     dateISO: "2026-07-02",
     theme: "Talkeetna → Denali",
     overnight: "Denali (1 of 2)",
-    sunrise: "04:36",
-    sunset: "23:31",
+    sunrise: "03:37",
+    sunset: "00:23",
     weather:
       "Interior and drier (~19°C); mosquitoes pick up hard past Cantwell.",
     hiC: 19,
     loC: 9,
-    precipPct: 40,
+    precipPct: 30,
     weatherForecast: false,
     tips: [
       "Rain shell accessible — interior showers come and go.",
@@ -820,6 +856,16 @@ export const DAYS: Day[] = [
         mapsQuery: "Denali RV Park and Motel Healy",
       },
       {
+        id: "d7-sled-dogs",
+        time: "14:00",
+        duration: "40 min",
+        type: "flex",
+        title: "Sled dog kennels demo (optional)",
+        detail:
+          "Free ranger demo at park HQ (Mile 3) — the only working sled-dog kennel in the US National Park Service; 2026 puppies. Usually 2 PM; confirm the day's time at the visitor center. Crowd favorite.",
+        mapsQuery: "Denali Sled Dog Kennels",
+      },
+      {
         id: "d7-visitor-center",
         time: "14:30",
         duration: "45 min",
@@ -841,12 +887,12 @@ export const DAYS: Day[] = [
         id: "d7-prep",
         time: "18:00",
         type: "note",
-        title: "Pack tomorrow's lunch · Charge everything · Alarms 05:00",
+        title: "Pack tomorrow's lunch · Charge everything · Alarms 5:00 AM",
         detail:
           "Sandwiches, snacks, full water bottles, layers, binoculars, sunscreen, DEET, camera with full battery, lens cleaning cloth.",
       },
       { id: "d7-dinner", time: "18:30", type: "meal", title: "Dinner" },
-      { id: "d7-sleep", time: "21:00", type: "sleep", title: "Sleep early · Alarms 05:00" },
+      { id: "d7-sleep", time: "21:00", type: "sleep", title: "Sleep early · Alarms 5:00 AM" },
     ],
   },
 
@@ -857,14 +903,16 @@ export const DAYS: Day[] = [
     dateISO: "2026-07-03",
     theme: "★ TRANSIT BUS · MILE 43",
     overnight: "Denali (2 of 2)",
-    sunrise: "04:38",
-    sunset: "23:29",
+    sunrise: "03:39",
+    sunset: "00:21",
     weather:
-      "Showers likely and cooler (~17°C) — a wet pattern was setting in around Denali.",
-    hiC: 17,
+      "Variable interior weather, ~18°C — partly cloudy with showers possible. Pack rain gear for the exposed bus stops.",
+    hiC: 18,
     loC: 8,
-    precipPct: 70,
+    precipPct: 40,
     weatherForecast: false,
+    verify:
+      "Confirm your East Fork departure — the receipt shows a 9:30 AM pickup AND an 11:30 AM–4:15 PM window. Be at the Denali Bus Depot by 9:10 AM regardless (missing it is non-refundable).",
     tips: [
       "Full rain gear — the bus stops are exposed and unheated.",
       "Layers + warm hat; bring lunch, water, binoculars (5–6 hrs out).",
@@ -897,11 +945,11 @@ export const DAYS: Day[] = [
       {
         id: "d8-bus",
         time: "09:30",
-        duration: "~6–7 hrs",
+        duration: "~6.75 hrs",
         type: "highlight",
         title: "East Fork Transit Bus → Mile 43",
         detail:
-          "Conf 3EY7SH. Departure is 9:30 AM sharp. Murie Cabin (Mile 43) is the deepest you can go in 2026 (Pretty Rocks landslide). Buses stop for wildlife — grizzlies, caribou, Dall sheep, moose. Hop off at Igloo Canyon (Mile 34) for an off-trail tundra walk and flag the next bus back.",
+          "Conf 3EY7SH. Pickup time IS the departure — back ~4:15 PM. Murie Cabin (Mile 43) is the deepest you can go in 2026 (Pretty Rocks landslide). Buses stop for wildlife — grizzlies, caribou, Dall sheep, moose. Hop off at Igloo Canyon (Mile 34) for an off-trail tundra walk and flag the next bus back.",
         stopIndex: 17,
         mapsQuery: "Denali Bus Depot",
         phone: "+18006221297",
@@ -911,10 +959,10 @@ export const DAYS: Day[] = [
       },
       {
         id: "d8-return",
-        time: "16:00",
+        time: "16:15",
         type: "transit",
         title: "Return to park entrance",
-        detail: "Back early-mid afternoon (~4 PM). Bathroom, refill water.",
+        detail: "Back ~4:15 PM. Bathroom, refill water.",
       },
       {
         id: "d8-sled-dogs",
@@ -953,14 +1001,16 @@ export const DAYS: Day[] = [
     dateISO: "2026-07-04",
     theme: "Denali → ANC via Hatcher Pass",
     overnight: "Anchorage (final)",
-    sunrise: "04:41",
-    sunset: "23:27",
+    sunrise: "04:28",
+    sunset: "23:40",
     weather:
       "Mix of sun and showers (~18°C); Hatcher Pass is colder and windier up high.",
     hiC: 18,
-    loC: 9,
-    precipPct: 40,
+    loC: 10,
+    precipPct: 30,
     weatherForecast: false,
+    verify:
+      "Check 511.alaska.gov that the Willow-side Hatcher Pass summit road is open (it opens ~July 1, snow-dependent). If closed, reach Independence Mine via the paved Palmer–Fishhook side instead.",
     tips: [
       "Keep layers handy — the pass can run ~8–10°C cooler than town.",
       "Long drive (~6 hrs) — fuel + snacks before Hatcher Pass.",
@@ -993,7 +1043,8 @@ export const DAYS: Day[] = [
         time: "14:00",
         type: "drive",
         title: "Willow turnoff → Hatcher Pass",
-        detail: "Mile 71. Watch for the Hatcher Pass Rd sign. Road is paved to the mine.",
+        detail:
+          "Mile 71. The Willow-side Hatcher Pass Rd is a narrow GRAVEL summit road (the paved approach is the Palmer side) and is slow — budget extra time. It opens ~July 1, snow-dependent, so confirm it's open first (511.alaska.gov).",
       },
       {
         id: "d9-mine",
@@ -1027,7 +1078,7 @@ export const DAYS: Day[] = [
         type: "flex",
         title: "Evening — pick 1",
         detail:
-          "(a) Alaska Native Heritage Center ($25, closes 5 PM — only works if you arrive before then). (b) Flattop Mountain (3.3 mi, 1,300 ft — doable until 22:00 in July light). (c) July 4th festivities at Delaney Park. (d) Skip it all, have a long dinner.",
+          "(a) Flattop Mountain (3.3 mi, 1,300 ft — easily doable in the 11 PM light). (b) Tony Knowles Coastal Trail stroll or bike. (c) July 4th festivities downtown / Delaney Park. (d) Skip it all, have a long dinner. (Museums all close 5–6 PM, so save those for tomorrow.)",
         mapsQuery: "Flattop Mountain Trailhead Anchorage",
       },
       {
@@ -1050,8 +1101,8 @@ export const DAYS: Day[] = [
     dateISO: "2026-07-05",
     theme: "Anchorage flex → Depart",
     overnight: "Red-eye home",
-    sunrise: "04:43",
-    sunset: "23:25",
+    sunrise: "04:30",
+    sunset: "23:39",
     weather: "Mild Anchorage day, ~19°C, partly cloudy before the red-eye out.",
     hiC: 19,
     loC: 11,
@@ -1089,7 +1140,7 @@ export const DAYS: Day[] = [
         type: "flex",
         title: "Coastal Trail by bike (alt: Earthquake Park)",
         detail:
-          "Pablo's Bicycle Rentals downtown. 11 mi paved, moose sightings. Or just walk Earthquake Park (free, 30 min).",
+          "Pablo's Bicycle Rentals downtown. 11 mi paved, moose sightings. Or just walk Earthquake Park (free, 30 min). Optional: the Anchorage Market (downtown, Sat+Sun 10 AM–6 PM — runs both Jul 4 and Jul 5) for last-day souvenirs + food trucks.",
         mapsQuery: "Pablo's Bicycle Rentals Anchorage",
       },
       {
@@ -1128,7 +1179,7 @@ export const DAYS: Day[] = [
         time: "23:33",
         type: "transit",
         title: "Alaska 1563 · ANC → LAX → SFO",
-        detail: "Arrive SFO 08:39 Mon Jul 6.",
+        detail: "Arrive SFO 8:39 AM Mon Jul 6.",
       },
     ],
   },
