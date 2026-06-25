@@ -39,6 +39,9 @@ export function ContactsPanel({ today }: Props) {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search name, role, or notes…"
           type="search"
+          enterKeyHint="search"
+          autoCapitalize="off"
+          autoCorrect="off"
           className="mt-3 w-full rounded-md border border-ink-200 bg-white px-3 py-2 text-sm placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
         />
       </div>

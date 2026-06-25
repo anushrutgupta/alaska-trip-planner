@@ -80,19 +80,33 @@ export default function App() {
 
   // iOS: the keyboard overlays the layout viewport and only shrinks the
   // visual one, so a focused input near the bottom ends up hidden. Nudge it
-  // into view once the keyboard has finished sliding in (~300ms).
+  // into view once the keyboard has finished sliding in (~300ms). Clear any
+  // pending nudge so rapid field-to-field taps don't over-scroll.
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
     const onFocusIn = (e: FocusEvent) => {
       const el = e.target as HTMLElement;
       if (!el.matches?.("input, textarea, select")) return;
-      setTimeout(
+      clearTimeout(timer);
+      timer = setTimeout(
         () => el.scrollIntoView({ block: "nearest", behavior: "smooth" }),
         300,
       );
     };
     document.addEventListener("focusin", onFocusIn);
-    return () => document.removeEventListener("focusin", onFocusIn);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("focusin", onFocusIn);
+    };
   }, []);
+
+  // Esc closes the mobile route sheet.
+  useEffect(() => {
+    if (!routeOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setRouteOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [routeOpen]);
 
   // Booking status is driven entirely by the `confirmed` flag (set from a
   // reconciled receipt) — no separate per-device toggle to drift out of sync.
@@ -183,7 +197,7 @@ export default function App() {
             <>
               <button
                 onClick={() => setRouteOpen(true)}
-                className="absolute right-2 top-2 z-[1000] rounded-full border border-ink-200 bg-white/95 px-3 py-1.5 text-xs font-medium text-ink-700 shadow-sm backdrop-blur lg:hidden"
+                className="absolute right-2 top-2 z-[1000] select-none rounded-full border border-ink-200 bg-white/95 px-3 py-1.5 text-xs font-medium text-ink-700 shadow-sm backdrop-blur active:bg-ink-100 lg:hidden"
               >
                 Route ↕
               </button>
@@ -205,10 +219,10 @@ export default function App() {
             <button
               aria-label="Close"
               onClick={() => setRouteOpen(false)}
-              className="absolute inset-0 bg-ink-900/30"
+              className="animate-fade absolute inset-0 bg-ink-900/50 active:bg-ink-900/60"
             />
-            <div className="absolute inset-x-0 bottom-0 flex max-h-[70vh] flex-col rounded-t-2xl bg-white pb-[env(safe-area-inset-bottom)] shadow-2xl">
-              <div className="mx-auto mt-2 h-1 w-9 shrink-0 rounded-full bg-ink-200" />
+            <div className="animate-sheet absolute inset-x-0 bottom-0 flex max-h-[70vh] flex-col rounded-t-2xl bg-white pb-[env(safe-area-inset-bottom)] shadow-2xl">
+              <div className="mx-auto mt-2 h-1 w-9 shrink-0 select-none rounded-full bg-ink-200" />
               <RouteTimeline
                 stops={STOPS}
                 currentIndex={currentIndex}

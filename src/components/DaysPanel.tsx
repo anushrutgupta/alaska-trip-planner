@@ -35,11 +35,15 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
   }, [trip.todayIndex]);
 
   const stripRef = useRef<HTMLDivElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const el = stripRef.current?.querySelector<HTMLButtonElement>(
       `[data-day-index="${activeIndex}"]`,
     );
     el?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    // Switching days keeps this component mounted — reset the schedule scroll
+    // so you don't land mid-timeline on the new day.
+    scrollRef.current?.scrollTo({ top: 0 });
   }, [activeIndex]);
 
   const noteVal = notes[day.dateISO] ?? "";
@@ -60,12 +64,12 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
               data-day-index={i}
               onClick={() => setActiveIndex(i)}
               className={
-                "flex shrink-0 flex-col items-center rounded-md px-2.5 py-1.5 text-xs transition-colors " +
+                "flex shrink-0 select-none flex-col items-center rounded-md px-2.5 py-1.5 text-xs transition-colors " +
                 (isActive
                   ? "bg-ink-900 text-white"
                   : isToday
-                    ? "bg-accent-100 text-accent-800 ring-1 ring-accent-300"
-                    : "bg-white text-ink-600 hover:bg-ink-100")
+                    ? "bg-accent-100 text-accent-800 ring-1 ring-accent-300 active:bg-accent-200"
+                    : "bg-white text-ink-600 hover:bg-ink-100 active:bg-ink-200")
               }
             >
               <span className="font-semibold">{d.label}</span>
@@ -79,7 +83,7 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
 
       {/* Everything below the day strip scrolls together, so the timeline
           isn't squeezed by the weather/tips header on small screens. */}
-      <div className="scroll-soft flex-1 overflow-y-auto pb-3">
+      <div ref={scrollRef} className="scroll-soft flex-1 overflow-y-auto pb-3">
         {/* Day header */}
         <div className="px-6 pt-4 pb-2">
           <div>
@@ -130,6 +134,7 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
             }
             placeholder="What we saw, where we ate, what to remember."
             rows={3}
+            autoCapitalize="sentences"
             className="mt-1.5 w-full resize-y rounded-md border border-ink-200 bg-white px-2.5 py-1.5 text-sm text-ink-800 placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
           />
           </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { TabKey } from "../App";
 
 interface Props {
@@ -34,7 +34,7 @@ export function BottomNav(props: Props) {
       {sheetOpen && <MoreSheet {...props} onGo={go} onClose={() => setSheetOpen(false)} />}
 
       <nav
-        className="z-30 flex shrink-0 border-t border-ink-200 bg-white pb-[env(safe-area-inset-bottom)] lg:hidden"
+        className="z-30 flex shrink-0 select-none border-t border-ink-200 bg-white pb-[env(safe-area-inset-bottom)] lg:hidden"
         aria-label="Primary"
       >
         <Slot
@@ -87,7 +87,7 @@ function Slot({
     <button
       onClick={onClick}
       className={
-        "relative flex min-h-[52px] flex-1 flex-col items-center justify-center gap-0.5 text-[11px] font-medium transition-colors " +
+        "relative flex min-h-[52px] flex-1 flex-col items-center justify-center gap-0.5 text-[11px] font-medium transition-colors active:bg-ink-50 " +
         (active ? "text-accent-700" : "text-ink-500")
       }
     >
@@ -141,15 +141,21 @@ function MoreSheet({
     { key: "contacts", label: "Contacts", sub: "operators, lodging, emergency" },
   ];
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   return (
     <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal>
       <button
         aria-label="Close"
         onClick={onClose}
-        className="absolute inset-0 bg-ink-900/50"
+        className="animate-fade absolute inset-0 bg-ink-900/50 active:bg-ink-900/60"
       />
-      <div className="absolute inset-x-0 bottom-0 rounded-t-2xl bg-white pb-[calc(env(safe-area-inset-bottom)+0.5rem)] shadow-2xl">
-        <div className="mx-auto mt-2 h-1 w-9 rounded-full bg-ink-200" />
+      <div className="animate-sheet absolute inset-x-0 bottom-0 rounded-t-2xl bg-white pb-[calc(env(safe-area-inset-bottom)+0.5rem)] shadow-2xl">
+        <div className="mx-auto mt-2 h-1 w-9 select-none rounded-full bg-ink-200" />
         <ul className="px-3 pt-2">
           {rows.map((r) => (
             <li key={r.key}>

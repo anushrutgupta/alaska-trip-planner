@@ -161,18 +161,22 @@ export function BookingsPanel({ confirmations, setConfirmations }: Props) {
                         value={conf.conf ?? ""}
                         onChange={(v) => updateConf(b.id, { conf: v })}
                         placeholder="ABC-123456"
+                        autoCapitalize="characters"
+                        autoCorrect="off"
                       />
                       <Field
                         label="Contact person"
                         value={conf.contactName ?? ""}
                         onChange={(v) => updateConf(b.id, { contactName: v })}
                         placeholder="Name"
+                        autoCapitalize="words"
                       />
                       <Field
                         label="Time / window"
                         value={conf.time ?? ""}
                         onChange={(v) => updateConf(b.id, { time: v })}
                         placeholder="08:30 or 'tide-dep'"
+                        autoCapitalize="off"
                       />
                     </div>
 
@@ -226,11 +230,15 @@ function Field({
   value,
   onChange,
   placeholder,
+  autoCapitalize,
+  autoCorrect,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   placeholder?: string;
+  autoCapitalize?: "off" | "characters" | "words" | "sentences";
+  autoCorrect?: "on" | "off";
 }) {
   return (
     <label className="block">
@@ -242,6 +250,9 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        enterKeyHint="done"
+        autoCapitalize={autoCapitalize}
+        autoCorrect={autoCorrect}
         className="mt-0.5 w-full rounded-md border border-ink-200 bg-white px-2.5 py-1.5 text-sm text-ink-800 placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
       />
     </label>
