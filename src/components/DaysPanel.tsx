@@ -77,46 +77,49 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
         })}
       </div>
 
-      {/* Day header */}
-      <div className="shrink-0 px-6 pt-4 pb-3">
-        <div>
-          <div className="text-xs font-medium text-ink-500">
-            {day.label} · {day.date}
+      {/* Everything below the day strip scrolls together, so the timeline
+          isn't squeezed by the weather/tips header on small screens. */}
+      <div className="scroll-soft flex-1 overflow-y-auto pb-3">
+        {/* Day header */}
+        <div className="px-6 pt-4 pb-2">
+          <div>
+            <div className="text-xs font-medium text-ink-500">
+              {day.label} · {day.date}
+            </div>
+            <h2 className="mt-0.5 text-xl font-semibold tracking-tight text-ink-900">
+              {day.theme}
+            </h2>
           </div>
-          <h2 className="mt-0.5 text-xl font-semibold tracking-tight text-ink-900">
-            {day.theme}
-          </h2>
+
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-500">
+            <span>☀ {day.sunrise}</span>
+            <span>☾ {day.sunset}</span>
+            <span aria-hidden className="text-ink-300">|</span>
+            <span>Overnight: <span className="text-ink-700">{day.overnight}</span></span>
+            {day.driveMiles && (
+              <>
+                <span aria-hidden className="text-ink-300">|</span>
+                <span>
+                  Drive: <span className="text-ink-700">{day.driveMiles} mi · {day.driveTime}</span>
+                </span>
+              </>
+            )}
+          </div>
+          <WeatherChip day={day} />
+          <TideStrip dateISO={day.dateISO} />
+          <DayTips tips={day.tips} />
         </div>
 
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-500">
-          <span>☀ {day.sunrise}</span>
-          <span>☾ {day.sunset}</span>
-          <span aria-hidden className="text-ink-300">|</span>
-          <span>Overnight: <span className="text-ink-700">{day.overnight}</span></span>
-          {day.driveMiles && (
-            <>
-              <span aria-hidden className="text-ink-300">|</span>
-              <span>
-                Drive: <span className="text-ink-700">{day.driveMiles} mi · {day.driveTime}</span>
-              </span>
-            </>
-          )}
-        </div>
-        <WeatherChip day={day} />
-        <TideStrip dateISO={day.dateISO} />
-        <DayTips tips={day.tips} />
-      </div>
+        {/* Schedule */}
+        <div className="px-3">
+          <div className="space-y-0.5">
+            {day.events.map((e) => (
+              <EventRow key={e.id} event={e} onJumpToStop={onJumpToStop} />
+            ))}
+          </div>
 
-      {/* Schedule */}
-      <div className="scroll-soft flex-1 overflow-y-auto px-3 pb-3">
-        <div className="space-y-0.5">
-          {day.events.map((e) => (
-            <EventRow key={e.id} event={e} onJumpToStop={onJumpToStop} />
-          ))}
-        </div>
-
-        {/* Per-day notes */}
-        <div className="mt-4 rounded-xl border border-ink-200 bg-white p-3">
+          {/* Per-day notes */}
+          <div className="mt-4 rounded-xl border border-ink-200 bg-white p-3">
           <label className="text-xs font-semibold uppercase tracking-wide text-ink-500">
             Notes for {day.date}
           </label>
@@ -129,6 +132,7 @@ export function DaysPanel({ trip, notes, setNotes, onJumpToStop }: Props) {
             rows={3}
             className="mt-1.5 w-full resize-y rounded-md border border-ink-200 bg-white px-2.5 py-1.5 text-sm text-ink-800 placeholder:text-ink-400 focus:border-accent-400 focus:outline-none focus:ring-1 focus:ring-accent-200"
           />
+          </div>
         </div>
       </div>
     </div>

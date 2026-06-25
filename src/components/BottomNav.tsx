@@ -146,7 +146,7 @@ function MoreSheet({
       <button
         aria-label="Close"
         onClick={onClose}
-        className="absolute inset-0 bg-ink-900/30"
+        className="absolute inset-0 bg-ink-900/50"
       />
       <div className="absolute inset-x-0 bottom-0 rounded-t-2xl bg-white pb-[calc(env(safe-area-inset-bottom)+0.5rem)] shadow-2xl">
         <div className="mx-auto mt-2 h-1 w-9 rounded-full bg-ink-200" />

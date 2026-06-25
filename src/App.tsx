@@ -162,7 +162,11 @@ export default function App() {
         {/* Map: full-bleed on the mobile Map tab, left ~55% on desktop. */}
         <section
           className={
-            "relative border-b border-ink-200 lg:block lg:h-full lg:basis-[55%] lg:border-b-0 lg:border-r " +
+            // `isolate` keeps the in-map overlays (StopSheet / Route pill,
+            // which sit at a high z-index to clear Leaflet) trapped in this
+            // section's stacking context so they can't bleed over the bottom
+            // nav or the More/Route sheets.
+            "relative isolate border-b border-ink-200 lg:block lg:h-full lg:basis-[55%] lg:border-b-0 lg:border-r " +
             (mapVisibleMobile ? "block min-h-0 flex-1" : "hidden")
           }
         >
